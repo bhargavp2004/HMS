@@ -1,8 +1,10 @@
 body{
-    background-image : url('static/images/pexels-pixabay-258154.jpg');
-    /* background-image: url('/media/D/B.TECH/4TH SEMESTER/SEPP/HotelManagementSystem/static/images/pexels-pixabay-258154.jpg'); */
-    background-size : cover;
-    background-repeat : none;
+    background-image : url('templates/static/images/cloris-ying-QJMKyrud5l8-unsplash.jpg');
     font-family : montserrat;
-    align-items: center;    
+    background-repeat : no-repeat;
+    background-size : cover;
+}
+.behind_image{
+    background-color : rgb(205, 205, 205, 0.7);
+    padding : 200px;
 }

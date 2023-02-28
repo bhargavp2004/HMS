@@ -5,16 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="static/images/availability_form.css">
-    
+    <link rel="stylesheet" href="/static/css/availability_form.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body{
+            background-image : url('/static/images/cloris-ying-QJMKyrud5l8-unsplash.jpg');
+            font-family : montserrat;
+            background-repeat : no-repeat;
+            background-size : cover;
+            align-items: center;
+        }
+        .behind_image{
+            background-color : rgba(205, 205, 205, 0.7);
+            padding : 200px;
+        }
+        .category_input{
+            background-color : rgba(205, 205, 205, 0.7);
+            
+        }
+    </style>
 </head>
 
 <body>
     <center>
+        <div class = "behind_image">
     <form action = "" method = "post">
     {{form.as_p}}
     {% csrf_token %}
     <input type="submit">
+</div>
 </center>
 </form>
 </body>

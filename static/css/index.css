@@ -42,7 +42,7 @@ body{
 }
 
 .image2{
-  background-image: url('static/images/logo2.png');
+  background-image: url('/static/images/pexels-pixabay-258154.jpg');
   padding : 150px;
   width : 50px;
   text-align : center;
