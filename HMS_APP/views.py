@@ -25,6 +25,9 @@ class RoomList(ListView):
 class BookingList(ListView):
     model = Booking
 
+def home(request):
+    return render(request, 'index.html')
+
 class BookingView(FormView):
     form_class = AvailabilityForm
     template_name = 'availability_form.html'

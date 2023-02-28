@@ -19,7 +19,8 @@ from HMS_APP import views
 from HMS_APP.views import RoomList, BookingList, BookingView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', RoomList.as_view(), name = "roomlist"),
+    path('', views.home, name = 'home'),
+    path('room_list', RoomList.as_view(), name = "roomlist"),
     path('booking_list/', BookingList.as_view(), name = "bookinglist"),
-    path('book/', BookingView.as_view(), name = 'booking_view')
+    path('book/', BookingView.as_view(), name = 'booking_view'),
 ]
