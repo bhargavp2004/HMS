@@ -121,3 +121,16 @@ p{
 /* .image:hover{
 
 } */
+
+.book_now{
+  background-color : rgba(0, 0, 77, 0.9);
+  padding : 10px;
+  color : white;
+  font-size : 18px;
+  font-weight : bold;
+   text-align : center;
+  margin-top : 80px;
+  border-radius: 5px;
+  text-shadow: 65px;
+  transition : font-size 0.4s;
+}
