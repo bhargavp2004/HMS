@@ -134,4 +134,5 @@ p{
   border-radius: 5px;
   text-shadow: 65px;
   transition : font-size 0.4s;
+  text-decoration: none;
 }

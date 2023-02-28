@@ -1,0 +1,8 @@
+body{
+    background-image : url('static/images/pexels-pixabay-258154.jpg');
+    /* background-image: url('/media/D/B.TECH/4TH SEMESTER/SEPP/HotelManagementSystem/static/images/pexels-pixabay-258154.jpg'); */
+    background-size : cover;
+    background-repeat : none;
+    font-family : montserrat;
+    align-items: center;    
+}
