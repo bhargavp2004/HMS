@@ -24,3 +24,5 @@ urlpatterns = [
     path('booking_list/', BookingList.as_view(), name = "bookinglist"),
     path('book/', BookingView.as_view(), name = 'booking_view'),
 ]
+
+#no need to make changes
