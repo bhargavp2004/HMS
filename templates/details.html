@@ -15,6 +15,8 @@
     </style>
 </head>
 <body>
+  {% csrf_token %}
+
  {% for rooms in roomDetails %}
   <a href = "{% url 'BookSelection' number=rooms.number %}">
   <h2> Number : {{rooms.number }}</h2>
