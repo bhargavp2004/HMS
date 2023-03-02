@@ -50,11 +50,17 @@ class BookingView(FormView):
             booking.save()
             return HttpResponse(booking)
         else :
-            return HttpResponse("Rooms are not available")            
+            return HttpResponse("Rooms are not available")    
 
+def showDetails(request):
+    RoomDetails = Room.objects.all()
+    context = {'roomDetails' : RoomDetails}
+    return render(request, 'details.html', context)        
 
-def print(request) :
-    return render(request, 'printer.html')
+def BookSelection(request, number) :
+    roomDetail = Room.objects.filter(id = number)
+    context = {'SpecificDetail' : roomDetail}
+    return render(request, 'SpecificBooking.html', context)
 
 #it's Bhargav here to teach you the django very efficiently
         

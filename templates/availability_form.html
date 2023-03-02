@@ -33,6 +33,17 @@
           .form_class{
             margin-top : 100px;
           }
+
+          .background-formatter{
+           background-color : rgb(112,136,170);
+            background-image : url('/static/images/images.jpeg');
+            background-repeat : no-repeat;
+            background-size : cover;
+            margin-left : 0px;
+            width : 800x;
+            height : 740px;
+            color : white;
+          }
           
     </style>
 </head>
@@ -40,16 +51,17 @@
 <body>
     <div class="container-fluid">
     <div class="row">
-      <div class="col">
+      <div class="col-md-6">
         <img class = "image" src = "/static/images/pexels-pixabay-258154.jpg">
       </div>
       <div class="col">
-  
+        <div class = "background-formatter">
         <h4> Room No </h4>
         <p>
-          The Room is having capacity of this much people and this room has facilities like these....
+         <b> The Room is having capacity of this much people and this room has facilities like these....</b>
         </p>
         <center><div class = "form_class">
+            <b>
         <p>Book from here </p>
                         <br>
                         <div class ="form_formatter">
@@ -60,6 +72,8 @@
                           </center>
                         </div>
                       </div>
+                    </div>
+                </b>
       </div>
     </div>
   </div>
