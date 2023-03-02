@@ -1,4 +1,3 @@
-from urllib import request
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 import datetime
@@ -53,5 +52,10 @@ class BookingView(FormView):
         else :
             return HttpResponse("Rooms are not available")            
 
+
+def print(request) :
+    return render(request, 'printer.html')
+
+#it's Bhargav here to teach you the django very efficiently
         
 

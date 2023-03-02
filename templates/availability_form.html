@@ -1,43 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/static/css/availability_form.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <title>Book Your Rooms</title>
+    <link rel="stylesheet" href="availability_form.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
     <style>
-        body{
-            background-image : url('/static/images/cloris-ying-QJMKyrud5l8-unsplash.jpg');
-            font-family : montserrat;
-            background-repeat : no-repeat;
-            background-size : cover;
-            align-items: center;
+        .left_image {
+            height: 800px;
+            width: 700px;
+
         }
-        .behind_image{
-            background-color : rgba(205, 205, 205, 0.7);
-            padding : 200px;
+
+        .right_text {
+            background-color: rgb(141, 141, 191);
+            background-size: cover;
+            height: 800px;
+            width: 700px;
         }
-        .category_input{
-            background-color : rgba(205, 205, 205, 0.7);
-            
-        }
+        .image{
+            width : 800px;
+            height : 740px;
+          }
+          
+          .form_class{
+            margin-top : 100px;
+          }
+          
     </style>
 </head>
 
 <body>
-    <center>
-        <div class = "behind_image">
-    <form action = "" method = "post">
-    {{form.as_p}}
-    {% csrf_token %}
-    <input type="submit">
-</div>
-</center>
-</form>
-</body>
+    <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <img class = "image" src = "/static/images/pexels-pixabay-258154.jpg">
+      </div>
+      <div class="col">
+  
+        <h4> Room No </h4>
+        <p>
+          The Room is having capacity of this much people and this room has facilities like these....
+        </p>
+        <center><div class = "form_class">
+        <p>Book from here </p>
+                        <br>
+                        <div class ="form_formatter">
+                        <form action="" method="post">
+                            {{form.as_p}}
+                            {% csrf_token %}
+                            <input type="submit">
+                          </center>
+                        </div>
+                      </div>
+      </div>
+    </div>
+  </div>
+  </body>
+
 </html>
