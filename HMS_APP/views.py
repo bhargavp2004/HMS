@@ -62,6 +62,6 @@ def BookSelection(request, number) :
     context = {'SpecificDetail' : roomDetail}
     return render(request, 'SpecificBooking.html', context)
 
-#it's Bhargav here to teach you the django very efficiently
+
         
 
