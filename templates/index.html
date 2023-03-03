@@ -49,9 +49,13 @@
         {% endif %}</li>
       </ul>
     </div>
-    <h1>Book Your Stay</h1>
-    <p>This holiday season, make the most of every moment with us. Take pleasure in the perfect escape</p>
-    <a href="{% url 'booking_view' %}" class="book_now">BOOK NOW</a>
+       <h1>Book Your Stay</h1>
+      <p>This holiday season, make the most of every moment with us. Take pleasure in the perfect escape</p>
+      {% if user.is_authenticated %}
+      <a href="{% url 'booking_view' %}" class="book_now">BOOK NOW</a>
+      {% else %}
+      <a href="{% url 'login' %}" class="book_now">BOOK NOW</a>
+      {% endif %}
 
 
     <!-- <a href="{% url 'booking_view' %}" class = "book_now">BOOK NOW</a> -->
