@@ -14,17 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from HMS_APP import views
-from HMS_APP.views import RoomList, BookingList, BookingView
+from HMS_APP.views import RoomList, BookingList, BookingView, register_request
+app_name = "HMS_APP"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name = 'home'),
-    path('room_list', RoomList.as_view(), name = "roomlist"),
+    path('room_list/', RoomList.as_view(), name = "roomlist"),
     path('booking_list/', BookingList.as_view(), name = "bookinglist"),
     path('book_now/', views.showDetails, name = "showDetails"),
     path('BookSelection/<number>/', views.BookSelection, name = "BookSelection"),
     path('book/', BookingView.as_view(), name = 'booking_view'),
+    path('register/', views.register_request, name = "register"),
+    path('login/', views.login_request, name = "login"),
+    path('logout/', views.logout_request, name = "logout"),
 ]
+
 
 #no need to make changes

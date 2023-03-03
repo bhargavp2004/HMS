@@ -1,47 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home Page</title>
   <link rel="stylesheet" href="/static/css/index.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
-  body{
-    background-image : url('/static/images/pexels-pixabay-258154.jpg');
+  body {
+    background-image: url('/static/images/pexels-pixabay-258154.jpg');
   }
 </style>
+
 <body>
   <center>
-  <div class = "image">
-    <img src="static/images/logo2.png" alt="src">
-    <ul class = "leftclass">
-      <i class="fa fa-instagram"></i>
+    <div class="image">
+      <img src="static/images/logo2.png" alt="src">
+      <ul class="leftclass">
+        <i class="fa fa-instagram"></i>
 
-    </ul>
-    <ul class="nav">
-      <li><a href="/">HOME</a></li>
-      <li><a href="/about/">REGISTER</a></li>
-      <li><a href="/work/">LOGIN</a></li>
-      <li><a href="/clients/">ABOUT</a></li>
-      <li><a href="/contact/">CONTACT</a></li>
-      <li><a href="/contact/">IMAGE GALLERY</a></li>
-
-    </ul>
-      </div>
+      </ul>
+      {% if user.is_authenticated %}
+      <ul class="nav">
+        <li><a href="/">HOME</a></li>
+        <li><a href="/clients/">ABOUT</a></li>
+        <li><a href="/contact/">CONTACT</a></li>
+        <li><a href="/contact/">IMAGE GALLERY</a></li>
+        <li><a href="{% url 'logout'%}"> LOGOUT </a></li>
+        <li> <a href="">{{user.username}} </a></li>
+        {% else %}
+        <ul class="nav">
+          <li><a href="/">HOME</a></li>
+          <li><a href="{% url 'register' %}">REGISTER</a></li>
+          <li><a href="{% url 'login' %}">LOGIN</a></li>
+          <li><a href="/clients/">ABOUT</a></li>
+          <li><a href="/contact/">CONTACT</a></li>
+          <li><a href="/contact/">IMAGE GALLERY</a></li>
+        {% endif %}</li>
+      </ul>
+    </div>
     <h1>Book Your Stay</h1>
     <p>This holiday season, make the most of every moment with us. Take pleasure in the perfect escape</p>
-    <a href="{% url 'booking_view' %}" class = "book_now">BOOK NOW</a>
-    
+    <a href="{% url 'booking_view' %}" class="book_now">BOOK NOW</a>
+
 
     <!-- <a href="{% url 'booking_view' %}" class = "book_now">BOOK NOW</a> -->
     <!-- <button class = "submitbutton" type="submit">BOOK NOW</button> -->
-</center>
+  </center>
 
 </body>
-</html>
 
+</html>
