@@ -25,11 +25,12 @@ urlpatterns = [
     path('room_list/', RoomList.as_view(), name = "roomlist"),
     path('booking_list/', BookingList.as_view(), name = "bookinglist"),
     path('book_now/', views.showDetails, name = "showDetails"),
-    path('BookSelection/<number>/', views.BookSelection, name = "BookSelection"),
+    path('BookSelection/<number>/<check_in>/<check_out>', views.BookSelection, name = "BookSelection"),
     path('book/', BookingView.as_view(), name = 'booking_view'),
     path('register/', views.register_request, name = "register"),
     path('login/', views.login_request, name = "login"),
     path('logout/', views.logout_request, name = "logout"),
+    path('room_search_view/', views.room_search_view, name = "room_search_view"),
 ]
 
 
