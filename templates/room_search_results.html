@@ -1,0 +1,13 @@
+{% if rooms %}
+  <h2>Available Rooms:</h2>
+
+    {% for room in rooms %}
+    <a href="{% url 'BookSelection' number=room.number check_in=check_in check_out=check_out%}">
+      <h3> Number : {{ room.number }} </h3>
+      <h3>Category : {{ room.category }}</h3>
+      <h3> Capacity  : {{ room.capacity }}</h3>
+  </a> 
+    {% endfor %}
+{% else %}
+  <p>No rooms available for selected dates and category.</p>
+{% endif %}
