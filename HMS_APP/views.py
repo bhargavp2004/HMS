@@ -1,9 +1,9 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import datetime
 from django.views.generic import FormView, ListView
 from .models import Room, Booking
-from .forms import AvailabilityForm, NewUserForm
+from .forms import AvailabilityForm, NewUserForm, RoomSearchForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -34,6 +34,7 @@ class BookingView(FormView):
     form_class = AvailabilityForm
     template_name = 'availability_form.html'
 
+
     def form_valid(self, form):
         data = form.cleaned_data
         room_list = Room.objects.filter(category = data['room_category'])
@@ -51,6 +52,7 @@ class BookingView(FormView):
                 check_out = data['check_out']
             )        
             booking.save()
+           
             return HttpResponse(booking)
         else :
             return HttpResponse("Rooms are not available")    
@@ -60,10 +62,14 @@ def showDetails(request):
     context = {'roomDetails' : RoomDetails}
     return render(request, 'details.html', context)        
 
-def BookSelection(request, number) :
-    roomDetail = Room.objects.filter(id = number)
-    context = {'SpecificDetail' : roomDetail}
-    return render(request, 'SpecificBooking.html', context)
+def BookSelection(request, number, check_in, check_out) :
+    check_in_date = check_in
+    check_out_date = check_out
+    roomDetail = Room.objects.get(number = number)
+    booking = Booking.objects.create(user=request.user, room=roomDetail, check_in=check_in_date, check_out=check_out_date)
+    booking.save()
+    context = {'booking' : booking}
+    return render(request, 'success_booking.html', context)
 
 def register_request(request):
     if request.method == "POST":
@@ -100,3 +106,25 @@ def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect("home")
+
+def room_search_view(request):
+    if request.method == 'POST':
+        form = RoomSearchForm(request.POST)
+        if form.is_valid():
+            category = form.cleaned_data['room_category']
+            check_in_date = form.cleaned_data['check_in']
+            check_out_date = form.cleaned_data['check_out']
+            # filter rooms based on user selections
+            rooms = Room.objects.filter(category=category)
+            available_rooms = []
+
+            for room in rooms :
+                if check_availability(room, check_in_date, check_out_date):
+                    available_rooms.append(room)
+            
+            context = {'rooms' : available_rooms, 'category' : category, 'check_in' : check_in_date, 'check_out' : check_out_date}
+            return render(request, 'room_search_results.html', context)
+    else:
+        form = RoomSearchForm()
+    return render(request, 'room_search.html', {'form': form})
+
