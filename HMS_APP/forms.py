@@ -29,3 +29,14 @@ class NewUserForm(UserCreationForm):
             user.save()
         return user
 
+
+class RoomSearchForm(forms.Form):
+    ROOM_CATEGORIES = (
+        ('WithAc', 'AC'),
+        ('WithoutAc', 'NON-AC'),
+        ('Deluxe', 'DELUXE'),
+    )
+    room_category = forms.ChoiceField(choices=ROOM_CATEGORIES)
+    check_in = forms.DateField()
+    check_out = forms.DateField()
+
