@@ -40,14 +40,7 @@ output will be shown at http://127.0.0.1:8000/
 ## Homepage
 ![App Screenshot](https://github.com/bhargavp2004/HMS/blob/master/static/images/HomePage.png)
 
-After clicking on Book Now button
-![App Screenshot](https://github.com/bhargavp2004/HMS/blob/master/static/images/BookNow.png)
-
-Make any selection from the text visible, suppose I have selected second option, On the next page it will showup content like this (Here, text format is only used for testing purpose. Later on it will be replaced by images and css will be provided to the page.)
-
-![App Screenshot](https://github.com/bhargavp2004/HMS/blob/master/static/images/pay&Book.png)
-
-
+ (Here, text format is only used for testing purpose. Later on it will be replaced by images and css will be provided to the page.)
 
 ## Credits
 This project was developed by Bhargav Patel and Akshar Parekh.
