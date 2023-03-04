@@ -8,44 +8,75 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
   integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <style>
-  body {
-    background-image: url('/static/images/put-together-a-perfect-guest-room-1976987-hero-223e3e8f697e4b13b62ad4fe898d492d.jpg');
-    font-family: montserrat;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    color: black;
-    font-size: 10px;
-  }
+         body {
+            background-image: url('/static/images/put-together-a-perfect-guest-room-1976987-hero-223e3e8f697e4b13b62ad4fe898d492d.jpg');
+            font-family: montserrat;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            color: black;
+            font-size: 7px;
+        }
 
-  a {
-    font-size: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-  }
+        a {
+            font-size: 7px;
+            text-decoration: none;
+            font-weight: bold;
+            color: black;
+        }
 
-  .grid {
-  display: flex;
-  align-items: center;
-  padding: 50px;
-  background-color: rgba(175, 173, 169, 0.8);
-  border-radius: 15px;
-}
+        .grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(175, 173, 169, 0.8);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
 
-.gridimage {
-  background-image: url('/static/images/15319.jpg');
-  height: 170px;
-  width: 180px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 15px;
-  margin-right: 10px;
-}
+        .gridimage {
+            background-image: url('/static/images/15319.jpg');
+            height: 170px;
+            width: 180px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 15px;
+            margin-right: 10px;
+        }
 
-.roomtext{
-  flex: 1;
-}
+        .roomtext {
+            flex: 1;
+        }
+
+
+        @media (min-width: 576px) {
+            .grid {
+                flex-direction: row;
+                justify-content: center;
+                padding: 50px;
+            }
+
+            .gridimage {
+                margin-right: 20px;
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .grid {
+                padding: 10px;
+            }
+
+            .gridimage {
+                height: 120px;
+            }
+
+            .roomtext {
+                text-align: center;
+            }
+        }
+
 
 </style>
 {% if rooms %}
