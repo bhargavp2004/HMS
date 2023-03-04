@@ -20,11 +20,22 @@
   body {
     background-image: url('/static/images/pexels-pixabay-258154.jpg');
   }
+  .username {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 16px;
+  display : inline-block;
+}
 </style>
 
 <body>
   <center>
     <div class="image">
+      {% if user.is_authenticated %}
+  <div class="username"> <h3>Welcome {{ user.username }}</h3></div>
+{% endif %}
       <img src="static/images/logo2.png" alt="src">
       <ul class="leftclass">
         <i class="fa fa-instagram"></i>
@@ -37,7 +48,6 @@
         <li><a href="/contact/">CONTACT</a></li>
         <li><a href="/contact/">IMAGE GALLERY</a></li>
         <li><a href="{% url 'logout'%}"> LOGOUT </a></li>
-        <li> <a href="">{{user.username}} </a></li>
         {% else %}
         <ul class="nav">
           <li><a href="/">HOME</a></li>
