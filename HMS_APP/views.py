@@ -128,3 +128,4 @@ def room_search_view(request):
         form = RoomSearchForm()
     return render(request, 'room_search.html', {'form': form})
 
+# Left to add payment methods
