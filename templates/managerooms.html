@@ -1,14 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
     <title>Manage rooms</title>
-</head>
-<body>
+    <style>
+        body{
+            background-image : url('/static/images/pexels-pixabay-262048.jpg');
+        }
+      a {
+        padding: 15px;
+        background-color: gray;
+        color: white;
+        border-radius: 10px;
+        text-decoration: none;
+        font-family: montserrat;
+        margin-left : 15px;
+      }
+
+      a:hover{
+        padding : 20px;
+        background-color : black;        
+      }
+
+      .buttons{
+        padding : 50px;
+        border-radius : 20px;
+        background-color : rgba(175, 173, 169, 0.8);     
+        background-size : cover;
+        background-repeat : no-repeat;
+      }
+    </style>
+  </head>
+  <body>
+    <div class = "buttons">
     <a href="{% url 'create_room' %}"> Add Room </a>
     <a href="{% url 'delete_room' %}"> Delete Room </a>
 
-</body>
+    </div>
+  </body>
 </html>
