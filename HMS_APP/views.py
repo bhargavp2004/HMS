@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 import datetime
 from django.views.generic import FormView, ListView
 from .models import Room, Booking
-from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm, updateInfoForm
+from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
