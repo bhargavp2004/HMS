@@ -53,4 +53,5 @@ class RoomForm(forms.ModelForm):
     number = forms.IntegerField()
     category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
     capacity = forms.IntegerField()
+    room_description = forms.Textarea()
 
