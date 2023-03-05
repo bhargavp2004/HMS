@@ -1,9 +1,9 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 import datetime
 from django.views.generic import FormView, ListView
 from .models import Room, Booking
-from .forms import AvailabilityForm, NewUserForm, RoomSearchForm
+from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -127,5 +127,24 @@ def room_search_view(request):
     else:
         form = RoomSearchForm()
     return render(request, 'room_search.html', {'form': form})
+
+def manage_room(request):
+    return render(request, 'managerooms.html')
+def create_room(request):
+    if request.method == 'POST':
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            room = form.save()
+            return redirect('room_detail', number=room.number)
+    else:
+        form = RoomForm()
+    return render(request, 'room_form.html', {'form': form})
+
+
+def room_detail(request, number):
+    room = Room.objects.get(number=number)
+    context = {'room': room}
+    return render(request, 'room_detail.html', context)
+
 
 

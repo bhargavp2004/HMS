@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Room
 
 class AvailabilityForm(forms.Form):
     ROOM_CATEGORIES = (
@@ -39,4 +40,17 @@ class RoomSearchForm(forms.Form):
     room_category = forms.ChoiceField(choices=ROOM_CATEGORIES)
     check_in = forms.DateField()
     check_out = forms.DateField()
+
+class RoomForm(forms.ModelForm):
+    class Meta :
+        model = Room
+        fields = '__all__'
+    ROOM_CATEGORIES = [
+        ('WithAc', 'AC'),
+        ('WithoutAc', 'NON-AC'),
+        ('Deluxe', 'DELUXE'),
+    ]
+    number = forms.IntegerField()
+    category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
+    capacity = forms.IntegerField()
 
