@@ -34,6 +34,8 @@ urlpatterns = [
     path('room_detail/<number>', views.room_detail, name = 'room_detail'),
     path('create_room', views.create_room, name = 'create_room'),
     path('manage_room/', views.manage_room, name = "manage_room"),
+    path('deletion_list_view', views.delete_room, name = "delete_room"),
+    path('deleteRoom/<number>/', views.deleteRoom, name = "deleteRoom"),
     
 ]
 

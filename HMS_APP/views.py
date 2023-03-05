@@ -130,6 +130,7 @@ def room_search_view(request):
 
 def manage_room(request):
     return render(request, 'managerooms.html')
+
 def create_room(request):
     if request.method == 'POST':
         form = RoomForm(request.POST)
@@ -140,11 +141,20 @@ def create_room(request):
         form = RoomForm()
     return render(request, 'room_form.html', {'form': form})
 
+def delete_room(request):
+    rooms = Room.objects.all()
+    context = {'rooms' : rooms}
+    return render(request, "deletion_list_view.html", context)
 
 def room_detail(request, number):
     room = Room.objects.get(number=number)
     context = {'room': room}
     return render(request, 'room_detail.html', context)
+
+def deleteRoom(request, number):
+    room = Room.objects.get(number=number)
+    room.delete()
+    return HttpResponse("Room deleted successfully")
 
 
 

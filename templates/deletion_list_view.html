@@ -1,0 +1,9 @@
+{% csrf_token %}
+
+{% for room in rooms %}
+<a href = "{% url 'deleteRoom' number=room.number %}"><h3> Number : {{room.number}} </h3></a>
+<a href = ""><h3> Capacity : {{room.capacity}} </h3></a>
+<a href = ""><h3> Category : {{room.category}} </h3></a>
+<br> 
+<br>
+{% endfor %}
