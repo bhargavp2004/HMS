@@ -156,5 +156,20 @@ def deleteRoom(request, number):
     room.delete()
     return HttpResponse("Room deleted successfully")
 
+def update_room(request):
+    if request.method == 'POST':
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            number = form.cleaned_data['number']
+            room = Room.objects.get(number=number)
+            room.capacity = form.cleaned_data['capacity']
+            room.category = form.cleaned_data['category']
+            room.room_description = form.cleaned_data['room_description']
+            room.save()
+            return HttpResponse(room)
+    else:
+        form = RoomForm()
+    return render(request, 'room_form.html', {'form': form})
+
 
 
