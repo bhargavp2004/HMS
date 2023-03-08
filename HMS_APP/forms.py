@@ -55,3 +55,13 @@ class RoomForm(forms.ModelForm):
     capacity = forms.IntegerField()
     room_description = forms.Textarea()
 
+class UpdateInformationForm(forms.Form):
+    ROOM_CATEGORIES = [
+        ('WithAc', 'AC'),
+        ('WithoutAc', 'NON-AC'),
+        ('Deluxe', 'DELUXE'),
+    ]
+    number = forms.IntegerField()
+    category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
+    capacity = forms.IntegerField()
+    room_description = forms.Textarea()
