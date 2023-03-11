@@ -2,11 +2,12 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 import datetime
 from django.views.generic import FormView, ListView
-from .models import Room, Booking
+from .models import Room, Booking, UserProfile
 from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 
 def check_availability(room, check_in, check_out):
     available_list = []
@@ -156,23 +157,11 @@ def deleteRoom(request, number):
     room.delete()
     return HttpResponse("Room deleted successfully")
 
-def update_room(request):
-    if request.method == 'POST':
-        form = RoomForm(request.POST)
-        if form.is_valid():
-            number = form.cleaned_data['number']
-            room = Room.objects.get(number=number)
-            room.capacity = form.cleaned_data['capacity']
-            room.category = form.cleaned_data['category']
-            room.room_description = form.cleaned_data['room_description']
-            room.save()
-            return HttpResponse(room)
-    else:
-        form = RoomForm()
-    return render(request, 'room_form.html', {'form': form})
-
-
-
+def profile_page(request):
+    user = UserProfile.objects.get(username=request.user.username)
+    
+    context = {'user' : user}
+    return render(request, "profile_page_view.html", context)
 
 
 

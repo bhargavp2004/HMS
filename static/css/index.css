@@ -1,9 +1,10 @@
+
 body{
   background-image : url('pexels-pixabay-258154.jpg');
   /* background-image: url('/media/D/B.TECH/4TH SEMESTER/SEPP/HotelManagementSystem/static/images/pexels-pixabay-258154.jpg'); */
   background-size : cover;
   background-repeat : none;
-  font-family : montserrat;
+  font-family : Arial, Helvetica, sans-serif;
   align-items: center;
 }
 .nav{
@@ -21,7 +22,7 @@ body{
   padding:20px;
   text-decoration: none;
   color : white;
-  font-family : montserrat;
+  font-family : Arial, Helvetica, sans-serif;
   font-size : 20px;
   font-weight: bold;
   text-shadow: 65px;

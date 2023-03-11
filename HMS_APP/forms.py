@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Room
+from .models import Room, UserProfile
 
 class AvailabilityForm(forms.Form):
     ROOM_CATEGORIES = (
@@ -17,15 +17,22 @@ class AvailabilityForm(forms.Form):
         return f'{self.room_category}'
     
 class NewUserForm(UserCreationForm):
+    first_name = forms.CharField(max_length=100)
+    last_name = forms.CharField(max_length=100)
     email = forms.EmailField(required=True)
+    mobile_number = forms.CharField(max_length=10)
+    address = forms.Textarea()
+    username = forms.CharField(max_length = 200)
 
     class Meta:
-        model = User
-        fields = ("username", "email", "password1", "password2")
+        model = UserProfile
+        fields = ("first_name", "last_name", "mobile_number", "address", "username", "email", "password1", "password2")
 
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
+        user.address = self.cleaned_data['address']
+        user.mobile_number = self.cleaned_data['mobile_number']
         if commit:
             user.save()
         return user
@@ -55,13 +62,3 @@ class RoomForm(forms.ModelForm):
     capacity = forms.IntegerField()
     room_description = forms.Textarea()
 
-class UpdateInformationForm(forms.Form):
-    ROOM_CATEGORIES = [
-        ('WithAc', 'AC'),
-        ('WithoutAc', 'NON-AC'),
-        ('Deluxe', 'DELUXE'),
-    ]
-    number = forms.IntegerField()
-    category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
-    capacity = forms.IntegerField()
-    room_description = forms.Textarea()
