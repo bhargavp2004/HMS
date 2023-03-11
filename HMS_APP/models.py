@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class UserProfile(User):
     mobile_number = models.CharField(max_length=10)
     address = models.TextField()
+    profile_picture = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return f'User registration done by {self.first_name} {self.last_name}'

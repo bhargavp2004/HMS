@@ -74,7 +74,7 @@ def BookSelection(request, number, check_in, check_out) :
 
 def register_request(request):
     if request.method == "POST":
-        form = NewUserForm(request.POST)
+        form = NewUserForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             login(request, user)
