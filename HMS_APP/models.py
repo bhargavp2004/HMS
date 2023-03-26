@@ -33,4 +33,4 @@ class Booking(models.Model):
     def __str__(self) :
         return f'{self.user} has booked room with {self.room} from {self.check_in} to {self.check_out}'
 
-        #changed through atom
+        #changed through vs code
