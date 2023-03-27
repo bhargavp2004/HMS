@@ -62,6 +62,7 @@ class RoomSearchForm(forms.Form):
         check_out = self.cleaned_data['check_out']
         if check_in < date.today():
             self.add_error('check_in', 'Check-in date can not be in the past.')
+            return False
         if check_out <= check_in:
             self.add_error('check_out', 'Check-out date must be after check-in date.')
             return False
