@@ -1,6 +1,6 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-import datetime
+from datetime import date
 from django.views.generic import FormView, ListView
 from .models import Room, Booking, UserProfile
 from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm
@@ -9,8 +9,15 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
+
 def check_availability(room, check_in, check_out):
+    booking_list = Booking.objects.all()
     available_list = []
+
+    for booking in booking_list :
+        if booking.check_out < date.today():
+            booking.delete()
+
     booking_list = Booking.objects.filter(room=room)
 
     for booking in booking_list :
@@ -35,28 +42,29 @@ class BookingView(FormView):
     form_class = AvailabilityForm
     template_name = 'availability_form.html'
 
-
     def form_valid(self, form):
-        data = form.cleaned_data
-        room_list = Room.objects.filter(category = data['room_category'])
-        available_rooms = []
-        for room in room_list:
-            if check_availability(room, data['check_in'], data['check_out']):
-                available_rooms.append(room)
+        if form.is_valid():
+            data = form.cleaned_data
+            room_list = Room.objects.filter(category = data['room_category'])
+            available_rooms = []   
 
-        if len(available_rooms) > 0:
-            room = available_rooms[0]
-            booking = Booking.objects.create(
-                user = self.request.user,
-                room = room,
-                check_in = data['check_in'],
-                check_out = data['check_out']
-            )        
-            booking.save()
-           
-            return HttpResponse(booking)
-        else :
-            return HttpResponse("Rooms are not available")    
+            for room in room_list:
+                if check_availability(room, data['check_in'], data['check_out']):
+                    available_rooms.append(room)
+
+            if len(available_rooms) > 0:
+                room = available_rooms[0]
+                booking = Booking.objects.create(
+                    user = self.request.user,
+                    room = room,
+                    check_in = data['check_in'],
+                    check_out = data['check_out']
+                )        
+                booking.save()
+            
+                return HttpResponse(booking)
+            else :
+                return HttpResponse("Rooms are not available")    
 
 def showDetails(request):
     RoomDetails = Room.objects.all()
@@ -115,6 +123,7 @@ def room_search_view(request):
             category = form.cleaned_data['room_category']
             check_in_date = form.cleaned_data['check_in']
             check_out_date = form.cleaned_data['check_out']
+            
             # filter rooms based on user selections
             rooms = Room.objects.filter(category=category)
             available_rooms = []
