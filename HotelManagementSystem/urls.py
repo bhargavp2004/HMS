@@ -24,5 +24,7 @@ urlpatterns = [
     path('deletion_list_view', views.delete_room, name = "delete_room"),
     path('deleteRoom/<number>/', views.deleteRoom, name = "deleteRoom"),
     path('profile_page/', views.profile_page, name = "profile_page"),
+    path('about/', views.about, name="about"),
+    path('contact_us/', views.contact_us, name = "contact_us")
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -172,6 +172,9 @@ def profile_page(request):
     context = {'user' : user}
     return render(request, "profile_page_view.html", context)
 
-
+def about(request):
+    return render(request, "about.html")
+def contact_us(request):
+    return render(request, "contact_us.html")
 
 

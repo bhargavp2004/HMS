@@ -46,8 +46,8 @@ display : inline-block;
       {% if user.is_authenticated %}
       <ul class="nav">
         <li><a href="/">HOME</a></li>
-        <li><a href="/clients/">ABOUT</a></li>
-        <li><a href="/contact/">CONTACT</a></li>
+        <li><a href="{% url 'about' %}">ABOUT</a></li>
+        <li><a href="{% url 'contact_us' %}">CONTACT</a></li>
         <li><a href="/contact/">IMAGE GALLERY</a></li>
         <li><a href="{% url 'logout'%}"> LOGOUT </a></li>
         {% if user.username == "bhargavp2004"%}
@@ -59,8 +59,8 @@ display : inline-block;
           <li><a href="/">HOME</a></li>
           <li><a href="{% url 'register' %}">REGISTER</a></li>
           <li><a href="{% url 'login' %}">LOGIN</a></li>
-          <li><a href="/clients/">ABOUT</a></li>
-          <li><a href="/contact/">CONTACT</a></li>
+          <li><a href="{% url 'about' %}">ABOUT</a></li>
+          <li><a href="{% url 'contact_us' %}">CONTACT</a></li>
           <li><a href="/contact/">IMAGE GALLERY</a></li>
         {% endif %}</li>
       </ul>
