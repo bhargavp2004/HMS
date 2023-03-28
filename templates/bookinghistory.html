@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Booking History</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+		h1 {
+			font-size: 36px;
+			font-weight: bold;
+			margin-bottom: 20px;
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 20px;
+			background-color: #fff;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+		}
+		th {
+			background-color: rgb(0, 0, 77);
+			color: white;
+		}
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+		.back-to-home {
+			display: block;
+			text-align: center;
+			margin-top: 20px;
+		}
+		.back-to-home a {
+			color: rgb(0, 0, 77);
+			font-weight: bold;
+			text-decoration: none;
+		}
+		.back-to-home a:hover {
+			text-decoration: underline;
+		}
+		a{
+			text-decoration : none;
+		}
+
+		.alert {
+			padding: 15px;
+			margin-bottom: 20px;
+			border: 1px solid transparent;
+			border-radius: 4px;
+		  }
+		  .alert-success {
+			color: #3c763d;
+			background-color: #dff0d8;
+			border-color: #d6e9c6;
+		  }
+		  
+		  .alert-danger {
+			color: #a94442;
+			background-color: #f2dede;
+			border-color: #ebccd1;
+		  }
+		  
+	</style>
+</head>
+<body>
+	<div class="container">
+		{% if messages %}
+		<div id="messages">
+		  {% for msg in messages %}
+		  
+			<div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
+			  
+			  {{ msg }}
+			</div>
+		  {% endfor %}
+		</div>
+	  {% endif %}
+	  
+	  <script>
+		setTimeout(function() {
+		  var messages = document.getElementById("messages");
+		  if (messages) {
+			messages.style.display = 'none';
+		  }
+		}, 3000);
+	  </script>
+		<h1>Booking History</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Booking ID</th>
+					<th>Room Number</th>
+					<th>Check In</th>
+					<th>Check Out</th>
+					<th>  <th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for booking in bookings %}
+				<tr>
+					<td>{{ booking.id }}</td>
+					<td>{{ booking.room.number }}</td>
+					<td>{{ booking.check_in }}</td>
+					<td>{{ booking.check_out }}</td>
+					<td><a href="{% url 'removeHistory' id=booking.id %}">Remove From History</a></td>
+
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="back-to-home">
+			<a href="{% url 'home' %}">Back to Home</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -36,3 +36,9 @@ class UserProfile(User):
 
     def __str__(self):
         return f'User registration done by {self.first_name} {self.last_name}'
+    
+class BookingHistory(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
+    check_in = models.DateField(null=True)
+    check_out = models.DateField(null=True)

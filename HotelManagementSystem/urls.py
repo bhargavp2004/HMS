@@ -34,6 +34,6 @@ urlpatterns = [
     path('active_bookings/', views.active_bookings, name = "active_bookings"),
     path('booking_history/', views.booking_history, name = "booking_history"),
     path('cancel_booking/<id>', views.cancel_booking, name = "cancel_booking"),
-
+    path('removeHistory/<id>', views.removeHistory, name = "removeHistory"),
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

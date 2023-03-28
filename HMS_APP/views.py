@@ -2,7 +2,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from datetime import date, datetime
 from django.views.generic import FormView, ListView
-from .models import Room, Booking, UserProfile
+from .models import Room, Booking, UserProfile, BookingHistory
 from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm, UpdateInformationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -13,8 +13,6 @@ import razorpay
 razorpay_client = razorpay.Client(auth=('rzp_test_nzs4ByTHntmX6Z', 'royYN10eUq420ptrsRtrqtpE'))
 RAZORPAY_PAYMENT_METHODS = ['card', 'netbanking', 'upi']
 RAZORPAY_API_KEY = "rzp_test_nzs4ByTHntmX6Z"
-
-
 
 def check_availability(room, check_in, check_out):
     booking_list = Booking.objects.all()
@@ -218,7 +216,6 @@ def book_now(request, number, check_in, check_out):
     print(order_amount)
     order_currency = 'INR'
     order_receipt = 'order_rcptid_11'
-
     razorpay_order = razorpay_client.order.create(dict(amount=(order_amount * 100), currency=order_currency, receipt=order_receipt, payment_capture=1))
 
     # Render the payment form with the order details
@@ -230,8 +227,13 @@ def success_payment_page(request, number, check_in, check_out):
     roomDetail = Room.objects.get(number = number)
     booking = Booking.objects.create(user=request.user, room=roomDetail, check_in=check_in_date, check_out=check_out_date)
     booking.save()
-    # userprofile = UserProfile.objects.get(username=request.user.username)
-    # userprofile.bookings = booking
+    bookinghistory = BookingHistory.objects.create()
+    bookinghistory.id = booking.id
+    bookinghistory.user = request.user
+    bookinghistory.room = roomDetail
+    bookinghistory.check_in = check_in
+    bookinghistory.check_out = check_out
+    bookinghistory.save()
     messages.success(request, "Payment Was Successfull")
     return redirect('generate_bill', booking_id=booking.id)
 
@@ -248,9 +250,8 @@ def active_bookings(request):
     return render(request, "bookings.html", {'bookings' : bookings})
 
 def booking_history(request):
-#     user = request.user
-#     bookings = UserProfile.
-    return render(request, "bookings.html", {'bookings' : bookings})
+    bookings = BookingHistory.objects.filter(user=request.user)
+    return render(request, "bookinghistory.html", {'bookings' : bookings})
 
 def cancel_booking(request, id):
     booking = Booking.objects.get(id=id)
@@ -258,3 +259,8 @@ def cancel_booking(request, id):
     messages.success(request, "Booking Cancelled Successfully!")
     return redirect("active_bookings")
 
+def removeHistory(request, id):
+    bookinghistory = BookingHistory.objects.get(id = id)
+    bookinghistory.delete()
+    messages.success(request, "Removal from history successfull!")
+    return redirect("booking_history")
