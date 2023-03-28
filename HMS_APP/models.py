@@ -2,14 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 
-class UserProfile(User):
-    mobile_number = models.CharField(max_length=10)
-    address = models.TextField()
-    profile_picture = models.ImageField(upload_to='images/')
-
-    def __str__(self):
-        return f'User registration done by {self.first_name} {self.last_name}'
-
 class Room(models.Model) :
     ROOM_CATEGORIES = (
         ('WithAc', 'AC'),
@@ -36,4 +28,11 @@ class Booking(models.Model):
     def __str__(self) :
         return f'{self.user} has booked room with {self.room} from {self.check_in} to {self.check_out}'
 
-        #changed through vs code
+class UserProfile(User):
+    mobile_number = models.CharField(max_length=10)
+    address = models.TextField()
+    profile_picture = models.ImageField(upload_to='images/')
+    bookings = models.ForeignKey(Booking, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f'User registration done by {self.first_name} {self.last_name}'

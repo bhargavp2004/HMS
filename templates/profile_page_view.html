@@ -46,19 +46,41 @@
       }
 
       .edit-profile-link {
-        display: block;
-        text-align: right;
-        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
       }
 
       .edit-profile-link a {
-        color: #F37254;
+        color: rgba(0, 0, 77, 0.9);
         font-weight: bold;
         text-decoration: none;
+        margin-right: 20px;
       }
 
       .edit-profile-link a:hover {
         text-decoration: underline;
+      }
+
+      .booking-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .booking-buttons a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color:rgba(0, 0, 77, 0.9);
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+
+      .booking-buttons a:hover {
+        background-color: rgba(0, 0, 77, 0.9);
+        color : white;
       }
     </style>
   </head>
@@ -81,6 +103,10 @@
       </div>
       <div class="edit-profile-link">
         <a href="#">Edit Profile</a>
+        <div class="booking-buttons">
+          <a href="{% url 'active_bookings' %}">Active Bookings</a>
+          <a href="{% url 'booking_history' %}">Booking History</a>
+        </div>
       </div>
     </div>
   </body>

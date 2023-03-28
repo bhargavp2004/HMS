@@ -29,4 +29,11 @@ urlpatterns = [
     path('book_room_now/<number>/<check_in>/<check_out>', views.book_now, name="book_now"),
     path('success_payment_page/<number>/<check_in>/<check_out>', views.success_payment_page, name = "success_payment_page"),
     path('generate_bill/<booking_id>', views.generate_bill, name = "generate_bill"),
+    path('update_room/', views.update_room, name = "update_room"),
+    path('update_request/<number>', views.update_request, name = "update_request"),
+    path('active_bookings/', views.active_bookings, name = "active_bookings"),
+    path('booking_history/', views.booking_history, name = "booking_history"),
+    path('cancel_booking/<id>', views.cancel_booking, name = "cancel_booking"),
+
+
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from datetime import date, datetime
 from django.views.generic import FormView, ListView
 from .models import Room, Booking, UserProfile
-from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm
+from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm, UpdateInformationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -163,6 +163,24 @@ def delete_room(request):
     context = {'rooms' : rooms}
     return render(request, "deletion_list_view.html", context)
 
+def update_room(request):
+    rooms = Room.objects.all()
+    context = {'rooms' : rooms}
+    return render(request, "roomList.html", context)
+
+def update_request(request,number):
+    room = Room.objects.get(number=number)
+    if request.method == 'POST':
+        form = UpdateInformationForm(request.POST, request.FILES)
+        if form.is_valid():
+            room = form.save()
+            messages.success(request, "Room details were updated successfully!")
+            return redirect("home")
+    else:
+        form = UpdateInformationForm()
+    return render(request, 'room_form.html', {'form': form})
+
+
 def room_detail(request, number):
     room = Room.objects.get(number=number)
     context = {'room': room}
@@ -212,6 +230,8 @@ def success_payment_page(request, number, check_in, check_out):
     roomDetail = Room.objects.get(number = number)
     booking = Booking.objects.create(user=request.user, room=roomDetail, check_in=check_in_date, check_out=check_out_date)
     booking.save()
+    # userprofile = UserProfile.objects.get(username=request.user.username)
+    # userprofile.bookings = booking
     messages.success(request, "Payment Was Successfull")
     return redirect('generate_bill', booking_id=booking.id)
 
@@ -222,4 +242,19 @@ def generate_bill(request, booking_id):
     context = {'booking': booking, 'amount' : amount}
     return render(request, 'bill.html', context)
 
+def active_bookings(request):
+    user = request.user
+    bookings = Booking.objects.filter(user=user)
+    return render(request, "bookings.html", {'bookings' : bookings})
+
+def booking_history(request):
+#     user = request.user
+#     bookings = UserProfile.
+    return render(request, "bookings.html", {'bookings' : bookings})
+
+def cancel_booking(request, id):
+    booking = Booking.objects.get(id=id)
+    booking.delete()
+    messages.success(request, "Booking Cancelled Successfully!")
+    return redirect("active_bookings")
 

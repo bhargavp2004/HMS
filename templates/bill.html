@@ -16,6 +16,10 @@
     background-color: #f2dede;
     border-color: #ebccd1;
   }
+
+  .btn{
+    background-color : rgba(0, 0, 77, 0.9);
+  }
 </style>
 
 {% if messages %}
@@ -95,7 +99,8 @@ setTimeout(function() {
         </div>
         <hr>
         <p class="text-center">
-          <a href="{% url 'home' %}" class="btn btn-primary btn-lg mt-3">Back to Home</a>
+          <a href="{% url 'home' %}" class="btn btn-primary btn-lg mt-3" style="background-color: rgba(0, 0, 77, 0.9); border-color :rgba(0, 0, 77, 0.9);">Back to Home</a>
+
         </p>
       </div>
     </div>

@@ -37,8 +37,8 @@
         }
 
         button[type=submit] {
-            background-color: #F37254;
-            color: #fff;
+            background-color: rgba(0, 0, 77, 0.9);
+            color : white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -49,7 +49,8 @@
         }
 
         button[type=submit]:hover {
-            background-color: #da5740;
+            background-color: rgba(0, 0, 77, 0.9);
+            color : white;
         }
 
         .razorpay-payment-button {
@@ -70,7 +71,7 @@
                 data-image="/static/images/pexels-pixabay-258154.jpg"
                 data-prefill.name="{{ request.user.first_name }} + " " + {{ request.user.last_name }}"
                 data-prefill.email="{{ request.user.email }}"
-                data-theme.color="#F37254"
+                data-theme.color="#00004D"
                 date-notes="You are going to pay {{ amount }} in order to book room with room number {{ number }} from {{ check_in }} to {{ check_out }}">
         </script>
         <h4><i class="fa fa-info-circle"></i> You are going to pay {{ amount }} in order to book room with room number {{ number }} from {{ check_in }} to {{ check_out }}</h4>

@@ -52,6 +52,15 @@ display : inline-block;
   background-color: #f2dede;
   border-color: #ebccd1;
 }
+
+a{
+  text-decoration : none;
+}
+.userClass
+{
+  color : white;
+  font-family : Montserrat;
+}
 </style>
 
 <body>
@@ -80,7 +89,7 @@ display : inline-block;
       {% if user.is_authenticated %}
   <div class="username"> 
   <a href = "{% url 'profile_page' %}">
-    <h3>Welcome {{ user.username }}</h3></div>
+    <h3 class = "userClass">Welcome {{ user.username }}</h3></div>
   </a>
 {% endif %}
       <img src="static/images/logo2.png" alt="src">

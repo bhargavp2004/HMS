@@ -33,8 +33,6 @@ class NewUserForm(UserCreationForm):
 
     class Meta:
         model = UserProfile
-
-        fields = ("first_name", "last_name", "username", "email", "profile_picture", "mobile_number", "password1", "password2")
         fields = ("first_name", "last_name", "mobile_number", "address", "username", "email", "profile_picture", "password1", "password2")
 
     def save(self, commit=True):
