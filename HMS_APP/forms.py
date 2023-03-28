@@ -62,16 +62,14 @@ class RoomForm(forms.ModelForm):
     class Meta :
         model = Room
         fields = '__all__'
-    ROOM_CATEGORIES = [
-        ('WithAc', 'AC'),
-        ('WithoutAc', 'NON-AC'),
-        ('Deluxe', 'DELUXE'),
-    ]
-    number = forms.IntegerField()
-    category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
-    capacity = forms.IntegerField()
-    room_description = forms.Textarea()
-    room_price = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Price Per Day'}))
+        widgets = {
+            'number': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Room Number'}),
+            'category': forms.Select(attrs={'class': 'form-select'}),
+            'capacity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Room Capacity'}),
+            'room_description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Room Description'}),
+            'room_price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Price Per Day'}),
+        }
+
 
 class UpdateInformationForm(forms.Form):
     ROOM_CATEGORIES = [

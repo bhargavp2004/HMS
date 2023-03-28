@@ -1,20 +1,87 @@
-  <link rel="stylesheet" href="/static/css/profile.css">
-  <style>
-    img{
-      width : 100px;
-      height : 100px;
-    }
-  </style>
-  <div class="user-info">
-    {% csrf_token %}
-    <img src = "{{user.profile_picture.url}}"/>
-    <h3>Name: {{user.first_name}} {{user.last_name}}</h3>
-    <h3>Username: {{user.username}}</h3>
-    <h3>Address: {{user.address}}</h3>
-    <h3>Mobile Number: {{user.mobile_number}}</h3>
-  </div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
 
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
 
+      .user-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+      }
 
+      .user-info img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
 
+      h1 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
 
+      h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+      .edit-profile-link {
+        display: block;
+        text-align: right;
+        margin-bottom: 20px;
+      }
+
+      .edit-profile-link a {
+        color: #F37254;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      .edit-profile-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>User Profile</h1>
+      <div class="user-info">
+        {% csrf_token %}
+        <img src="{{user.profile_picture.url}}" alt="{{user.username}}'s profile picture">
+        <div>
+          <h3>Name:</h3>
+          <p>{{user.first_name}} {{user.last_name}}</p>
+          <h3>Username:</h3>
+          <p>{{user.username}}</p>
+          <h3>Address:</h3>
+          <p>{{user.address}}</p>
+          <h3>Mobile Number:</h3>
+          <p>{{user.mobile_number}}</p>
+        </div>
+      </div>
+      <div class="edit-profile-link">
+        <a href="#">Edit Profile</a>
+      </div>
+    </div>
+  </body>
+</html>

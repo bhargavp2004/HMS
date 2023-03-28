@@ -27,5 +27,6 @@ urlpatterns = [
     path('about/', views.about, name="about"),
     path('contact_us/', views.contact_us, name = "contact_us"),
     path('book_room_now/<number>/<check_in>/<check_out>', views.book_now, name="book_now"),
-    path('success_payment_page', views.success_payment_page, name = "success_payment_page"),
+    path('success_payment_page/<number>/<check_in>/<check_out>', views.success_payment_page, name = "success_payment_page"),
+    path('generate_bill/<booking_id>', views.generate_bill, name = "generate_bill"),
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

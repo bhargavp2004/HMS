@@ -1,6 +1,6 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from datetime import date
+from datetime import date, datetime
 from django.views.generic import FormView, ListView
 from .models import Room, Booking, UserProfile
 from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm
@@ -152,7 +152,8 @@ def create_room(request):
         form = RoomForm(request.POST, request.FILES)
         if form.is_valid():
             room = form.save()
-            return redirect('room_detail', number=room.number)
+            messages.success(request, "The room was added successfully!")
+            return redirect("home")
     else:
         form = RoomForm()
     return render(request, 'room_form.html', {'form': form})
@@ -187,13 +188,14 @@ def contact_us(request):
 
 def book_now(request, number, check_in, check_out):
     # Retrieve the room and booking details from the request
-    # room_number = request.GET.get('room_number')
-    # check_in_date = request.GET.get('check_in')
-    # check_out_date = request.GET.get('check_out')
+    room_number = request.GET.get('room_number')
+    check_in_date = datetime.strptime(check_in, "%Y-%m-%d").date()
+    check_out_date = datetime.strptime(check_out, "%Y-%m-%d").date()
+    duration = (check_out_date - check_in_date).days
 
     # Create a Razorpay order with the amount and other details
     room = Room.objects.get(number=number)
-    order_amount = room.room_price # Replace with the actual amount
+    order_amount = (room.room_price * duration) # Replace with the actual amount
     print(order_amount)
     order_currency = 'INR'
     order_receipt = 'order_rcptid_11'
@@ -201,9 +203,22 @@ def book_now(request, number, check_in, check_out):
     razorpay_order = razorpay_client.order.create(dict(amount=(order_amount * 100), currency=order_currency, receipt=order_receipt, payment_capture=1))
 
     # Render the payment form with the order details
-    return render(request, 'payment_form.html', {'order_id': razorpay_order['id'], 'amount': order_amount, 'currency': order_currency})
+    return render(request, 'payment_form.html', {'order_id': razorpay_order['id'], 'amount': order_amount, 'currency': order_currency, 'number' : number, 'check_in' : check_in, 'check_out' : check_out})
 
-def success_payment_page(request):
-    booking = Booking.objects.create()
+def success_payment_page(request, number, check_in, check_out):
+    check_in_date = check_in
+    check_out_date = check_out
+    roomDetail = Room.objects.get(number = number)
+    booking = Booking.objects.create(user=request.user, room=roomDetail, check_in=check_in_date, check_out=check_out_date)
+    booking.save()
     messages.success(request, "Payment Was Successfull")
-    return 
+    return redirect('generate_bill', booking_id=booking.id)
+
+def generate_bill(request, booking_id):
+    booking = Booking.objects.get(id=booking_id)
+    duration = (booking.check_out - booking.check_in).days
+    amount = booking.room.room_price * duration
+    context = {'booking': booking, 'amount' : amount}
+    return render(request, 'bill.html', context)
+
+

@@ -31,6 +31,7 @@ class Booking(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateField()
     check_out = models.DateField()
+    
 
     def __str__(self) :
         return f'{self.user} has booked room with {self.room} from {self.check_in} to {self.check_out}'
