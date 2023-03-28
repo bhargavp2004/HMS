@@ -28,7 +28,7 @@
         resize: vertical;
       }
       input[type=submit] {
-        background-color: #4CAF50;
+        background-color: rgb(0, 0, 77);
         color: white;
         padding: 12px 20px;
         border: none;
@@ -36,7 +36,7 @@
         cursor: pointer;
       }
       input[type=submit]:hover {
-        background-color: #45a049;
+        background-color: rgb(0, 0, 77);
       }
       .container {
         display: flex;
@@ -55,6 +55,13 @@
         text-align: center;
         font-size: 18px;
       }
+
+      .submitbutton{
+        background-color : rgb(0, 0, 77);
+        color : white;
+      }
+
+
     </style>
   </head>
   <body>
@@ -73,9 +80,9 @@
         <label for="message">Message</label>
         <textarea id="message" name="message" placeholder="Write something.." style="height:100px" required></textarea>
   
-        <input type="submit" value="Submit">
+        <input class = "submitbutton" type="submit" value="Submit">
       </form>
-      <p>Alternatively, you can send us an email at <a href="mailto:bhargavp2004@gmail.com">bhargavp@gmail.com</a></p>
+      <p>Alternatively, you can send us an email at <a href="mailto:bhargavp2004@gmail.com">bhargavp2004@gmail.com</a></p>
     </div>
   </body>
 </html>

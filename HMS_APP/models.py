@@ -20,6 +20,8 @@ class Room(models.Model) :
     category = models.CharField(max_length = 10, choices=ROOM_CATEGORIES)
     capacity = models.IntegerField()
     room_description = models.TextField()
+    room_price = models.IntegerField(help_text = "Price Per Day", null=True)
+    room_picture = models.ImageField(null=True)
 
     def __str__(self) :
         return f'Room number {self.number} is having capacity of {self.capacity} people and category is {self.category}'

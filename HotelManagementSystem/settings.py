@@ -124,7 +124,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR , "static"
-]   
+]
 
 
 # Default primary key field type
@@ -134,3 +134,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+#payment methods
+RAZORPAY_PAYMENT_METHODS = ['card', 'netbanking', 'upi']
+RAZORPAY_API_KEY = 'rzp_test_nzs4ByTHntmX6Z'
+RAZORPAY_API_SECRET_KEY = 'royYN10eUq420ptrsRtrqtpE'

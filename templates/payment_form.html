@@ -1,0 +1,17 @@
+<form action="{% url 'success_payment_page' %}" method="POST">
+    {% csrf_token %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="rzp_test_nzs4ByTHntmX6Z"
+            data-amount="{{ amount }}"
+            data-currency="{{ currency }}"
+            data-order_id="{{ order_id }}"
+            data-buttontext="Pay {{ amount }}"
+            data-name="Royal Hotel"
+            data-description="Room Booking Payment"
+            data-image="/static/images/pexels-pixabay-258154.jpg"
+            data-prefill.name="{{ request.user.first_name }} + " " + {{ request.user.last_name }}"
+            data-prefill.email="{{ request.user.email }}"
+            data-theme.color="#F37254">
+    </script>
+    <input type="hidden" name="_token" value="{{ csrf_token }}">
+</form>

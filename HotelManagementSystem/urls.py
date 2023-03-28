@@ -25,6 +25,7 @@ urlpatterns = [
     path('deleteRoom/<number>/', views.deleteRoom, name = "deleteRoom"),
     path('profile_page/', views.profile_page, name = "profile_page"),
     path('about/', views.about, name="about"),
-    path('contact_us/', views.contact_us, name = "contact_us")
-
+    path('contact_us/', views.contact_us, name = "contact_us"),
+    path('book_room_now/<number>/<check_in>/<check_out>', views.book_now, name="book_now"),
+    path('success_payment_page', views.success_payment_page, name = "success_payment_page"),
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

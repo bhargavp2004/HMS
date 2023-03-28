@@ -1,9 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from .models import Room, UserProfile
-from datetime import date
 
 class AvailabilityForm(forms.Form):
     ROOM_CATEGORIES = (
@@ -14,23 +12,29 @@ class AvailabilityForm(forms.Form):
     room_category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
     check_in = forms.DateField(required=True)
     check_out = forms.DateField(required=True)
-    # if check_in < date.today():
-
 
     def __str__(self):
         return f'{self.room_category}'
-    
+
 class NewUserForm(UserCreationForm):
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
     email = forms.EmailField(required=True)
+
+    first_name = forms.CharField(max_length = 200)
+    last_name = forms.CharField(max_length = 200)
+    mobile_number = forms.CharField(max_length = 10)
+
     mobile_number = forms.CharField(max_length=10)
     address = forms.Textarea()
     username = forms.CharField(max_length = 200)
+
     profile_picture = forms.ImageField()
 
     class Meta:
         model = UserProfile
+
+        fields = ("first_name", "last_name", "username", "email", "profile_picture", "mobile_number", "password1", "password2")
         fields = ("first_name", "last_name", "mobile_number", "address", "username", "email", "profile_picture", "password1", "password2")
 
     def save(self, commit=True):
@@ -51,22 +55,8 @@ class RoomSearchForm(forms.Form):
         ('Deluxe', 'DELUXE'),
     )
     room_category = forms.ChoiceField(choices=ROOM_CATEGORIES)
-    check_in = forms.DateField()
-    check_out = forms.DateField()
-
-    def is_valid(self):
-        valid = super().is_valid()
-        if not valid:
-            return valid
-        check_in = self.cleaned_data['check_in']
-        check_out = self.cleaned_data['check_out']
-        if check_in < date.today():
-            self.add_error('check_in', 'Check-in date can not be in the past.')
-            return False
-        if check_out <= check_in:
-            self.add_error('check_out', 'Check-out date must be after check-in date.')
-            return False
-        return True
+    check_in = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    check_out = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
 class RoomForm(forms.ModelForm):
     class Meta :
@@ -81,4 +71,15 @@ class RoomForm(forms.ModelForm):
     category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
     capacity = forms.IntegerField()
     room_description = forms.Textarea()
+    room_price = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Price Per Day'}))
 
+class UpdateInformationForm(forms.Form):
+    ROOM_CATEGORIES = [
+        ('WithAc', 'AC'),
+        ('WithoutAc', 'NON-AC'),
+        ('Deluxe', 'DELUXE'),
+    ]
+    number = forms.IntegerField()
+    category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
+    capacity = forms.IntegerField()
+    room_description = forms.Textarea()

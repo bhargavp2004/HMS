@@ -8,6 +8,12 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+import razorpay
+
+razorpay_client = razorpay.Client(auth=('rzp_test_nzs4ByTHntmX6Z', 'royYN10eUq420ptrsRtrqtpE'))
+RAZORPAY_PAYMENT_METHODS = ['card', 'netbanking', 'upi']
+RAZORPAY_API_KEY = "rzp_test_nzs4ByTHntmX6Z"
+
 
 
 def check_availability(room, check_in, check_out):
@@ -46,7 +52,7 @@ class BookingView(FormView):
         if form.is_valid():
             data = form.cleaned_data
             room_list = Room.objects.filter(category = data['room_category'])
-            available_rooms = []   
+            available_rooms = []
 
             for room in room_list:
                 if check_availability(room, data['check_in'], data['check_out']):
@@ -59,17 +65,17 @@ class BookingView(FormView):
                     room = room,
                     check_in = data['check_in'],
                     check_out = data['check_out']
-                )        
+                )
                 booking.save()
-            
+
                 return HttpResponse(booking)
             else :
-                return HttpResponse("Rooms are not available")    
+                return HttpResponse("Rooms are not available")
 
 def showDetails(request):
     RoomDetails = Room.objects.all()
     context = {'roomDetails' : RoomDetails}
-    return render(request, 'details.html', context)        
+    return render(request, 'details.html', context)
 
 def BookSelection(request, number, check_in, check_out) :
     check_in_date = check_in
@@ -102,7 +108,7 @@ def login_request(request) :
 
             if user is not None:
                 login(request, user)
-                messages.info(request, f"you are now logged in as {username}.")
+                messages.success(request, f"you are now logged in as {username}.")
                 return redirect("home")
             else :
                 messages.error(request, "Invalid username or password")
@@ -113,7 +119,7 @@ def login_request(request) :
 
 def logout_request(request):
     logout(request)
-    messages.info(request, "You have successfully logged out.")
+    messages.success(request, "You have successfully logged out.")
     return redirect("home")
 
 def room_search_view(request):
@@ -123,7 +129,7 @@ def room_search_view(request):
             category = form.cleaned_data['room_category']
             check_in_date = form.cleaned_data['check_in']
             check_out_date = form.cleaned_data['check_out']
-            
+
             # filter rooms based on user selections
             rooms = Room.objects.filter(category=category)
             available_rooms = []
@@ -131,7 +137,7 @@ def room_search_view(request):
             for room in rooms :
                 if check_availability(room, check_in_date, check_out_date):
                     available_rooms.append(room)
-            
+
             context = {'rooms' : available_rooms, 'category' : category, 'check_in' : check_in_date, 'check_out' : check_out_date}
             return render(request, 'room_search_results.html', context)
     else:
@@ -143,7 +149,7 @@ def manage_room(request):
 
 def create_room(request):
     if request.method == 'POST':
-        form = RoomForm(request.POST)
+        form = RoomForm(request.POST, request.FILES)
         if form.is_valid():
             room = form.save()
             return redirect('room_detail', number=room.number)
@@ -168,7 +174,7 @@ def deleteRoom(request, number):
 
 def profile_page(request):
     user = UserProfile.objects.get(username=request.user.username)
-    
+
     context = {'user' : user}
     return render(request, "profile_page_view.html", context)
 
@@ -178,3 +184,26 @@ def contact_us(request):
     return render(request, "contact_us.html")
 
 
+
+def book_now(request, number, check_in, check_out):
+    # Retrieve the room and booking details from the request
+    # room_number = request.GET.get('room_number')
+    # check_in_date = request.GET.get('check_in')
+    # check_out_date = request.GET.get('check_out')
+
+    # Create a Razorpay order with the amount and other details
+    room = Room.objects.get(number=number)
+    order_amount = room.room_price # Replace with the actual amount
+    print(order_amount)
+    order_currency = 'INR'
+    order_receipt = 'order_rcptid_11'
+
+    razorpay_order = razorpay_client.order.create(dict(amount=(order_amount * 100), currency=order_currency, receipt=order_receipt, payment_capture=1))
+
+    # Render the payment form with the order details
+    return render(request, 'payment_form.html', {'order_id': razorpay_order['id'], 'amount': order_amount, 'currency': order_currency})
+
+def success_payment_page(request):
+    booking = Booking.objects.create()
+    messages.success(request, "Payment Was Successfull")
+    return 

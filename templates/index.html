@@ -31,9 +31,50 @@ color: white;
 font-size: 16px;
 display : inline-block;
 }
+.msgclass{
+  color : white;
+  background-color : rgba(0, 0, 77, 0.9);
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
 </style>
 
 <body>
+  {% if messages %}
+  <div id="messages">
+    {% for msg in messages %}
+    
+      <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
+        
+        {{ msg }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<script>
+  setTimeout(function() {
+    var messages = document.getElementById("messages");
+    if (messages) {
+      messages.style.display = 'none';
+    }
+  }, 3000);
+</script>
   <center>
     <div class="image">
       {% if user.is_authenticated %}

@@ -37,6 +37,17 @@
     font-weight: bold;
     color: black;
   }
+  .buttonclass {
+    background-color: black;
+    color: white;
+    padding: 15px;
+    border-radius: 6px;
+    transition: padding 0.3s ease-in-out;
+  }
+
+  .buttonclass:hover {
+    padding: 20px;
+  }
 
   .grid {
     display: flex;
@@ -48,17 +59,17 @@
     margin-bottom: 20px;
   }
 
-  .gridimage {
-    background-image: url("/static/images/15319.jpg");
-    height: 170px;
-    width: 180px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 15px;
-    margin-right: 10px;
+
+  .imageclass{
+    display : inline-block;
+    height: 200px;
+    width: 200px;
+    margin-right : 15px;
   }
 
   .roomtext {
+    padding : 30px;
+    border-radius : 15px;
     flex: 1;
   }
 
@@ -89,30 +100,71 @@
       text-align: center;
     }
   }
+  .navbar {
+    background-color: #333;
+    position: sticky;
+    top: 0;
+  }
+
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .navbar li {
+    float: left;
+  }
+
+  .navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  .navbar li a:hover {
+    background-color: #111;
+  }
+
+  .room-price {
+  font-weight: bold;
+  color: black;
+}
 </style>
+
+<nav class="navbar">
+  <ul>
+    <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'about' %}">About</a></li>
+    <li><a href="{% url 'contact_us' %}">Contact</a></li>
+  </ul>
+</nav>
 {% if rooms %}
 <h2>Available Rooms:</h2>
 
 {% for room in rooms %}
-<a
-  href="{% url 'BookSelection' number=room.number check_in=check_in check_out=check_out%}"
->
+
   <div class="grid">
-    <div class="gridimage"></div>
+    <div class="imageclass">
+      <img src="{{ room.room_picture.url }}" class = "imageclass" alt="">
+      </div>
     <div class="roomtext">
-      Number : {{ room.number }}
-      <br>
-      Category : {{ room.category }}
-      <br>
-      Capacity : {{ room.capacity }}
-      <br>
-        {{ room.room_description }}
+      <h3>Room {{ room.number }}</h3>
+       <p>Category: {{ room.category }}</p>
+       <p>Capacity: {{ room.capacity }}</p>
+       <p>Description: {{ room.room_description }}</p>
+       <p class="room-price">Price: {{ room.room_price }} Per Day</p>
+       <br>
+       <a class = "buttonclass" href="{% url 'book_now' number=room.number check_in=check_in check_out=check_out %}">
+         Book Room
+       </a>
 
     </div>
-    
-    
   </div>
-</a>
 
 <br />
 <br />
