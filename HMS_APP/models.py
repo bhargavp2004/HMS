@@ -42,3 +42,10 @@ class BookingHistory(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
     check_in = models.DateField(null=True)
     check_out = models.DateField(null=True)
+
+class Payment(models.Model):
+    razorpay_order_id = models.CharField(max_length=255)
+    amount = models.IntegerField()
+    currency = models.CharField(max_length=3)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)

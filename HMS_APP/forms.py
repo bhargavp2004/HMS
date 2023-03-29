@@ -20,15 +20,9 @@ class NewUserForm(UserCreationForm):
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
     email = forms.EmailField(required=True)
-
-    first_name = forms.CharField(max_length = 200)
-    last_name = forms.CharField(max_length = 200)
-    mobile_number = forms.CharField(max_length = 10)
-
     mobile_number = forms.CharField(max_length=10)
     address = forms.Textarea()
     username = forms.CharField(max_length = 200)
-
     profile_picture = forms.ImageField()
 
     class Meta:
@@ -79,3 +73,12 @@ class UpdateInformationForm(forms.Form):
     category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
     capacity = forms.IntegerField()
     room_description = forms.Textarea()
+
+class UserUpdateInformationForm(forms.Form):
+    first_name = forms.CharField(max_length = 200)
+    last_name = forms.CharField(max_length = 200)
+    mobile_number = forms.CharField(max_length = 10)
+    address = forms.CharField(widget=forms.Textarea)
+    email = forms.EmailField()
+    profile_picture = forms.ImageField()
+    new_password = forms.CharField(widget=forms.PasswordInput)
