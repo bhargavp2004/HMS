@@ -2,8 +2,8 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from datetime import date, datetime
 from django.views.generic import FormView, ListView
-from .models import Room, Booking, UserProfile, BookingHistory
-from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm, UpdateInformationForm
+from .models import Payment, Room, Booking, UserProfile, BookingHistory
+from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm, UpdateInformationForm, UserUpdateInformationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -218,6 +218,12 @@ def book_now(request, number, check_in, check_out):
     order_receipt = 'order_rcptid_11'
     razorpay_order = razorpay_client.order.create(dict(amount=(order_amount * 100), currency=order_currency, receipt=order_receipt, payment_capture=1))
 
+    payment = Payment.objects.create(
+    razorpay_order_id=razorpay_order['id'],
+    amount=order_amount,
+    currency=order_currency,
+    user=request.user
+    )
     # Render the payment form with the order details
     return render(request, 'payment_form.html', {'order_id': razorpay_order['id'], 'amount': order_amount, 'currency': order_currency, 'number' : number, 'check_in' : check_in, 'check_out' : check_out})
 
@@ -264,3 +270,35 @@ def removeHistory(request, id):
     bookinghistory.delete()
     messages.success(request, "Removal from history successfull!")
     return redirect("booking_history")
+
+# def editprofile(request):
+#     user = UserProfile.objects.get(id=request.user.id)
+#     if request.method == "POST":
+#         form = UserUpdateInformationForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             first_name = form.cleaned_data['first_name']
+#             last_name = form.cleaned_data['last_name']
+#             mobile_number = form.cleaned_data['mobile_number']
+#             address = form.cleaned_data['address']
+#             profile_picture = form.cleaned_data['profile_picture']
+#             new_password = form.cleaned_data['new_password']
+#             email = form.cleaned_data['email']
+
+#             userprofile = UserProfile.objects.get(username = request.user.username)
+#             userprofile.mobile_number = mobile_number=mobile_number
+#             userprofile.address = address
+#             userprofile.profile_picture = profile_picture
+#             userprofile.password = new_password
+#             userprofile.email = email
+#             userprofile.first_name = first_name
+#             userprofile.last_name = last_name
+#             userprofile.save()
+
+#             user = User.objects.get(username = request.user.username)
+#             user.password = new_password
+
+#             messages.success(request, "Information updated successfully." )
+#             return redirect("home")
+#         messages.error(request, "Unsuccessful.")
+#     form = UserUpdateInformationForm()
+#     return render (request=request, template_name="UpdateInformation.html", context={"register_form":form})
