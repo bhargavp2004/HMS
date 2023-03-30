@@ -35,7 +35,11 @@ urlpatterns = [
     path('booking_history/', views.booking_history, name = "booking_history"),
     path('cancel_booking/<id>', views.cancel_booking, name = "cancel_booking"),
     path('removeHistory/<id>', views.removeHistory, name = "removeHistory"),
-    path('show_all_rooms/', views.show_all_rooms, name = "show_all_rooms")
+    path('show_all_rooms/', views.show_all_rooms, name = "show_all_rooms"),
+    path('imagegallery/', views.imagegallery, name="imagegallery"),
+    path('add_images/', views.add_images, name = "add_images"),
+    path('delete_images/', views.delete_images, name = "delete_images"),
+    path('delete_image_request/<id>/', views.delete_image_request, name = "delete_image_request"),
     # path('editprofile/', views.editprofile, name = "edit_profile"),
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

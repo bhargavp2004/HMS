@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image Gallery</title>
+	<style>
+		.grid-container {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-gap: 10px;
+		}
+		
+		.grid-item {
+			padding: 10px;
+			text-align: center;
+		}
+		
+		.grid-item img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+        .alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+a{
+  text-decoration : none;
+}
+.userClass
+{
+  color : white;
+  font-family : Montserrat;
+}
+</style>
+
+<body>
+  {% if messages %}
+  <div id="messages">
+    {% for msg in messages %}
+    
+      <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
+        
+        {{ msg }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<script>
+  setTimeout(function() {
+    var messages = document.getElementById("messages");
+    if (messages) {
+      messages.style.display = 'none';
+    }
+  }, 3000);
+</script>
+	<h1>Image Gallery</h1>
+	<div class="grid-container">
+		<!-- loop through each image in the database -->
+		{% for image in images %}
+			<div class="grid-item">
+				<img src="{{ image.image.url }}">
+			</div>
+		{% endfor %}
+	</div>
+</body>
+</html>

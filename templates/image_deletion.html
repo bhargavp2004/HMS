@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image Gallery</title>
+	<style>
+		.grid-container {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-gap: 10px;
+		}
+		
+		.grid-item {
+			padding: 10px;
+			text-align: center;
+		}
+		
+		.grid-item img {
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<h1>Image Gallery</h1>
+	<div class="grid-container">
+		<!-- loop through each image in the database -->
+		{% for image in images %}
+			<div class="grid-item">
+				<a href = "{% url 'delete_image_request' id=image.id %}"><img src="{{ image.image.url }}"></a>
+			</div>
+		{% endfor %}
+	</div>
+</body>
+</html>

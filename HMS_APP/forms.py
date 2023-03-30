@@ -78,3 +78,6 @@ class UserUpdateInformationForm(forms.Form):
     email = forms.EmailField()
     profile_picture = forms.ImageField()
     new_password = forms.CharField(widget=forms.PasswordInput)
+
+class ImageForm(forms.Form):
+    image = forms.ImageField()

@@ -49,3 +49,6 @@ class Payment(models.Model):
     currency = models.CharField(max_length=3)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+class ImageGallery(models.Model):
+    image = models.ImageField(upload_to='images/')

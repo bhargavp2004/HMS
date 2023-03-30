@@ -10,9 +10,7 @@
     />
     <link rel="stylesheet" href="/static/css/managerooms.css">
     <title>Manage rooms</title>
-    <style>
 
-    </style>
   </head>
   <body>
     {% if messages %}
@@ -35,12 +33,15 @@
       }
     }, 3000);
   </script>
+
+  <h2> Management Panel </h2>
     <div class = "buttons">
     <a href="{% url 'show_all_rooms' %}"> Show All Rooms </a>
     <a href="{% url 'create_room' %}"> Add Room </a>
     <a href="{% url 'delete_room' %}"> Delete Room </a>
     <a href="{% url 'update_room' %}"> Update Room </a>
-
+    <a href="{% url 'add_images' %}"> Add Images </a>
+    <a href="{% url 'delete_images' %}"> Delete Images </a>
 
     </div>
   </body>

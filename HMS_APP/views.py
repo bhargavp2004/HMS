@@ -2,13 +2,14 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from datetime import date, datetime
 from django.views.generic import FormView, ListView
-from .models import Payment, Room, Booking, UserProfile, BookingHistory
-from .forms import AvailabilityForm, NewUserForm, RoomSearchForm, RoomForm, UpdateInformationForm, UserUpdateInformationForm
+from .models import ImageGallery, Payment, Room, Booking, UserProfile, BookingHistory
+from .forms import AvailabilityForm, ImageForm, NewUserForm, RoomSearchForm, RoomForm, UpdateInformationForm, UserUpdateInformationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 import razorpay
+import datetime
 
 razorpay_client = razorpay.Client(auth=('rzp_test_nzs4ByTHntmX6Z', 'royYN10eUq420ptrsRtrqtpE'))
 RAZORPAY_PAYMENT_METHODS = ['card', 'netbanking', 'upi']
@@ -313,5 +314,49 @@ def editprofile(request):
 
 def show_all_rooms(request):
     Rooms = Room.objects.all()
-    context = {'Rooms' : Rooms}
+    allBookings = Booking.objects.all()
+    current_date = datetime.date.today()
+
+    bookings = Booking.objects.filter(check_in__gt=current_date)
+    available_list = []
+    occuppied_list = []
+
+    for booking in bookings : 
+        room = Room.objects.filter(id=booking.room.id)
+        available_list.append(room)
+
+    for room in Rooms :
+        if room not in available_list:
+            occuppied_list.append(room)
+    context = {'Rooms' : Rooms, 'available_list' : available_list, 'occuppied_list' : occuppied_list}
     return render(request, "show_all_rooms.html", context)
+
+def imagegallery(request):
+    images = ImageGallery.objects.all()
+    context = {'images' : images}
+    return render(request, "imagegallery.html", context)
+
+def add_images(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data['image']
+            imagegallery = ImageGallery.objects.create(image=image)
+            imagegallery.save()
+            messages.success(request, "Image uploaded successfully!")
+            return redirect("manage_room")
+    else:
+        form = ImageForm()
+    return render(request, 'room_form.html', {'form': form})
+
+def delete_images(request):
+    images = ImageGallery.objects.all()
+    context = {'images' : images}
+    return render(request, "image_deletion.html", context)
+
+def delete_image_request(request, id):
+    print(id)
+    image = ImageGallery.objects.get(id=id)
+    image.delete()
+    messages.success(request, "Image deleted successfully")
+    return redirect("imagegallery")
