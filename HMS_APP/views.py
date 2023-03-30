@@ -171,7 +171,12 @@ def update_request(request,number):
     if request.method == 'POST':
         form = UpdateInformationForm(request.POST, request.FILES)
         if form.is_valid():
-            room = form.save()
+            room.capacity = form.cleaned_data['capacity']
+            room.category = form.cleaned_data['capacity']
+            room.description = form.cleaned_data['capacity']
+            room.room_price = form.cleaned_data['room_price']
+            room.room_picture = form.cleaned_data['room_picture']
+
             messages.success(request, "Room details were updated successfully!")
             return redirect("home")
     else:
@@ -187,10 +192,14 @@ def room_detail(request, number):
 def deleteRoom(request, number):
     room = Room.objects.get(number=number)
     room.delete()
-    return HttpResponse("Room deleted successfully")
+    messages.success(request, "Room deleted successfully")
+    return redirect("manage_room")
 
 def profile_page(request):
-    user = UserProfile.objects.get(username=request.user.username)
+    if(request.user.is_superuser):
+        user = User.objects.get(id=request.user.id)
+    else :
+        user = UserProfile.objects.get(username=request.user.username)
 
     context = {'user' : user}
     return render(request, "profile_page_view.html", context)
@@ -271,34 +280,38 @@ def removeHistory(request, id):
     messages.success(request, "Removal from history successfull!")
     return redirect("booking_history")
 
-# def editprofile(request):
-#     user = UserProfile.objects.get(id=request.user.id)
-#     if request.method == "POST":
-#         form = UserUpdateInformationForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             first_name = form.cleaned_data['first_name']
-#             last_name = form.cleaned_data['last_name']
-#             mobile_number = form.cleaned_data['mobile_number']
-#             address = form.cleaned_data['address']
-#             profile_picture = form.cleaned_data['profile_picture']
-#             new_password = form.cleaned_data['new_password']
-#             email = form.cleaned_data['email']
+def editprofile(request):
+    if request.user.is_superuser :
+        user = User.objects.get(id=request.user.id)
+    else : 
+        user = UserProfile.objects.get(id=request.user.id)
+    if request.method == "POST":
+        form = UserUpdateInformationForm(request.POST, request.FILES)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            mobile_number = form.cleaned_data['mobile_number']
+            address = form.cleaned_data['address']
+            profile_picture = form.cleaned_data['profile_picture']
+            new_password = form.cleaned_data['new_password']
+            email = form.cleaned_data['email']
 
-#             userprofile = UserProfile.objects.get(username = request.user.username)
-#             userprofile.mobile_number = mobile_number=mobile_number
-#             userprofile.address = address
-#             userprofile.profile_picture = profile_picture
-#             userprofile.password = new_password
-#             userprofile.email = email
-#             userprofile.first_name = first_name
-#             userprofile.last_name = last_name
-#             userprofile.save()
+            user.mobile_number = mobile_number=mobile_number
+            user.address = address
+            user.profile_picture = profile_picture
+            user.password = new_password
+            user.email = email
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
 
-#             user = User.objects.get(username = request.user.username)
-#             user.password = new_password
+            messages.success(request, "Information updated successfully." )
+            return redirect("home")
+        messages.error(request, "Unsuccessful.")
+    form = UserUpdateInformationForm()
+    return render (request=request, template_name="UpdateInformation.html", context={"register_form":form})
 
-#             messages.success(request, "Information updated successfully." )
-#             return redirect("home")
-#         messages.error(request, "Unsuccessful.")
-#     form = UserUpdateInformationForm()
-#     return render (request=request, template_name="UpdateInformation.html", context={"register_form":form})
+def show_all_rooms(request):
+    Rooms = Room.objects.all()
+    context = {'Rooms' : Rooms}
+    return render(request, "show_all_rooms.html", context)

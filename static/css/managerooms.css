@@ -1,0 +1,44 @@
+body{
+    background-image : url('/static/images/pexels-pixabay-262048.jpg');
+}
+a {
+padding: 15px;
+background-color: gray;
+color: white;
+border-radius: 10px;
+text-decoration: none;
+font-family: montserrat;
+margin-left : 15px;
+}
+
+a:hover{
+padding : 20px;
+background-color : black;        
+}
+
+.buttons{
+padding : 50px;
+border-radius : 20px;
+background-color : rgba(175, 173, 169, 0.8);     
+background-size : cover;
+background-repeat : no-repeat;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  .alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+  
+  .alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+  

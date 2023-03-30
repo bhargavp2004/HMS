@@ -17,13 +17,13 @@ class AvailabilityForm(forms.Form):
         return f'{self.room_category}'
 
 class NewUserForm(UserCreationForm):
-    first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100)
-    email = forms.EmailField(required=True)
-    mobile_number = forms.CharField(max_length=10)
-    address = forms.Textarea()
-    username = forms.CharField(max_length = 200)
-    profile_picture = forms.ImageField()
+    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    mobile_number = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    address = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+    username = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    profile_picture = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = UserProfile
@@ -38,7 +38,6 @@ class NewUserForm(UserCreationForm):
         if commit:
             user.save()
         return user
-
 
 class RoomSearchForm(forms.Form):
     ROOM_CATEGORIES = (
@@ -62,17 +61,14 @@ class RoomForm(forms.ModelForm):
             'room_price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Price Per Day'}),
         }
 
-
 class UpdateInformationForm(forms.Form):
-    ROOM_CATEGORIES = [
-        ('WithAc', 'AC'),
-        ('WithoutAc', 'NON-AC'),
-        ('Deluxe', 'DELUXE'),
-    ]
-    number = forms.IntegerField()
-    category = forms.ChoiceField(choices = ROOM_CATEGORIES, required=True)
-    capacity = forms.IntegerField()
-    room_description = forms.Textarea()
+    ROOM_CATEGORIES = [        ('WithAc', 'AC'),        ('WithoutAc', 'NON-AC'),        ('Deluxe', 'DELUXE'),    ]
+    category = forms.ChoiceField(choices=ROOM_CATEGORIES, required=True, widget=forms.Select(attrs={'class': 'form-control'}))
+    capacity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    room_description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+    room_picture = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
+    room_price = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
 
 class UserUpdateInformationForm(forms.Form):
     first_name = forms.CharField(max_length = 200)

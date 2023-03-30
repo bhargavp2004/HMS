@@ -8,37 +8,35 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/static/css/managerooms.css">
     <title>Manage rooms</title>
     <style>
-        body{
-            background-image : url('/static/images/pexels-pixabay-262048.jpg');
-        }
-      a {
-        padding: 15px;
-        background-color: gray;
-        color: white;
-        border-radius: 10px;
-        text-decoration: none;
-        font-family: montserrat;
-        margin-left : 15px;
-      }
 
-      a:hover{
-        padding : 20px;
-        background-color : black;        
-      }
-
-      .buttons{
-        padding : 50px;
-        border-radius : 20px;
-        background-color : rgba(175, 173, 169, 0.8);     
-        background-size : cover;
-        background-repeat : no-repeat;
-      }
     </style>
   </head>
   <body>
+    {% if messages %}
+    <div id="messages">
+      {% for msg in messages %}
+      
+        <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
+          
+          {{ msg }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  
+  <script>
+    setTimeout(function() {
+      var messages = document.getElementById("messages");
+      if (messages) {
+        messages.style.display = 'none';
+      }
+    }, 3000);
+  </script>
     <div class = "buttons">
+    <a href="{% url 'show_all_rooms' %}"> Show All Rooms </a>
     <a href="{% url 'create_room' %}"> Add Room </a>
     <a href="{% url 'delete_room' %}"> Delete Room </a>
     <a href="{% url 'update_room' %}"> Update Room </a>
