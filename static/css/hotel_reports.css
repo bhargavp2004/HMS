@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image : url('/static/images/pexels-pixabay-258154.jpg');
+    background-size : cover;
+    background-attachment : fixed;
+    background-repeat : no-repeat;
+    font-family : montserrat;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+  }
+  
+  .average {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+
+  .details-box {
+    background-color : rgba(0, 0, 77, 0.9);
+    border: 2px solid #ccc;
+    color : white;
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  .button_class{
+    margin-top : 10px;
+    background-color : white;
+    color : black;
+  }

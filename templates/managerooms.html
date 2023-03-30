@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/static/css/managerooms.css">
-    <title>Manage rooms</title>
+    <title>Management Panel</title>
 
   </head>
   <body>
@@ -34,7 +34,7 @@
     }, 3000);
   </script>
 
-  <h2> Management Panel </h2>
+  <h2 style="color : white; background-color : gray"> Management Panel </h2>
     <div class = "buttons">
     <a href="{% url 'show_all_rooms' %}"> Show All Rooms </a>
     <a href="{% url 'create_room' %}"> Add Room </a>
@@ -42,6 +42,8 @@
     <a href="{% url 'update_room' %}"> Update Room </a>
     <a href="{% url 'add_images' %}"> Add Images </a>
     <a href="{% url 'delete_images' %}"> Delete Images </a>
+    <a href="{% url 'hotel_report' %}"> Generate Report </a>
+
 
     </div>
   </body>

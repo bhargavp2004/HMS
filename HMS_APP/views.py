@@ -1,6 +1,5 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from datetime import date, datetime
 from django.views.generic import FormView, ListView
 from .models import ImageGallery, Payment, Room, Booking, UserProfile, BookingHistory
 from .forms import AvailabilityForm, ImageForm, NewUserForm, RoomSearchForm, RoomForm, UpdateInformationForm, UserUpdateInformationForm
@@ -8,8 +7,11 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 import razorpay
 import datetime
+from datetime import date, datetime
 
 razorpay_client = razorpay.Client(auth=('rzp_test_nzs4ByTHntmX6Z', 'royYN10eUq420ptrsRtrqtpE'))
 RAZORPAY_PAYMENT_METHODS = ['card', 'netbanking', 'upi']
@@ -238,9 +240,12 @@ def book_now(request, number, check_in, check_out):
     return render(request, 'payment_form.html', {'order_id': razorpay_order['id'], 'amount': order_amount, 'currency': order_currency, 'number' : number, 'check_in' : check_in, 'check_out' : check_out})
 
 def success_payment_page(request, number, check_in, check_out):
-    check_in_date = check_in
-    check_out_date = check_out
+
+    check_in_date = datetime.strptime(check_in, "%Y-%m-%d").date()
+    check_out_date = datetime.strptime(check_out, "%Y-%m-%d").date()
+    duration = (check_out_date - check_in_date).days
     roomDetail = Room.objects.get(number = number)
+    amount = duration * roomDetail.room_price
     booking = Booking.objects.create(user=request.user, room=roomDetail, check_in=check_in_date, check_out=check_out_date)
     booking.save()
     bookinghistory = BookingHistory.objects.create()
@@ -314,21 +319,7 @@ def editprofile(request):
 
 def show_all_rooms(request):
     Rooms = Room.objects.all()
-    allBookings = Booking.objects.all()
-    current_date = datetime.date.today()
-
-    bookings = Booking.objects.filter(check_in__gt=current_date)
-    available_list = []
-    occuppied_list = []
-
-    for booking in bookings : 
-        room = Room.objects.filter(id=booking.room.id)
-        available_list.append(room)
-
-    for room in Rooms :
-        if room not in available_list:
-            occuppied_list.append(room)
-    context = {'Rooms' : Rooms, 'available_list' : available_list, 'occuppied_list' : occuppied_list}
+    context = {'Rooms' : Rooms}
     return render(request, "show_all_rooms.html", context)
 
 def imagegallery(request):
@@ -360,3 +351,34 @@ def delete_image_request(request, id):
     image.delete()
     messages.success(request, "Image deleted successfully")
     return redirect("imagegallery")
+
+from django.db.models import Count, Sum
+from django.shortcuts import render
+from .models import Booking, Room, Payment
+
+def generate_hotel_report(request):
+    # Get total number of bookings
+    num_bookings = Booking.objects.count()
+    
+    # Get total revenue generated
+    total_revenue = Payment.objects.aggregate(total=Sum('amount'))['total']
+    
+    # Get total number of rooms
+    num_rooms = Room.objects.count()
+    
+    # Get total number of bookings for each room category
+    bookings_by_category = Booking.objects.values('room__category').annotate(count=Count('id')).order_by('room__category')
+
+
+    total_capacity = Room.objects.aggregate(total=Sum('capacity'))['total']
+    avg_occupancy_rate = (num_bookings / total_capacity) * 100
+    
+    context = {
+        'num_bookings': num_bookings,
+        'total_revenue': total_revenue,
+        'num_rooms': num_rooms,
+        'bookings_by_category': bookings_by_category,
+        'avg_occupancy_rate': avg_occupancy_rate,
+    }
+    
+    return render(request, 'hotel_report.html', context)

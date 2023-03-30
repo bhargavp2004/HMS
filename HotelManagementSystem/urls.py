@@ -40,6 +40,6 @@ urlpatterns = [
     path('add_images/', views.add_images, name = "add_images"),
     path('delete_images/', views.delete_images, name = "delete_images"),
     path('delete_image_request/<id>/', views.delete_image_request, name = "delete_image_request"),
+    path('hotel_report', views.generate_hotel_report, name='hotel_report'),
     # path('editprofile/', views.editprofile, name = "edit_profile"),
-
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

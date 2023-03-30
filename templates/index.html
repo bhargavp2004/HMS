@@ -100,7 +100,7 @@ a{
         <li><a href="{% url 'contact_us' %}">CONTACT</a></li>
         <li><a href="{% url 'imagegallery' %}">IMAGE GALLERY</a></li>
         <li><a href="{% url 'logout' %}"> LOGOUT </a></li>
-        {% if user.username == "bhargavp2004"%}
+        {% if user.is_superuser or user.is_staff %}
         <li><a href="{% url 'manage_room' %}"> MANAGEMENT PANEL </a></li>
 
         {% endif%}

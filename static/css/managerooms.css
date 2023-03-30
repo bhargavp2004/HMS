@@ -1,5 +1,8 @@
 body{
     background-image : url('/static/images/pexels-pixabay-262048.jpg');
+    background-size : cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 a {
 padding: 15px;
