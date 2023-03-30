@@ -47,4 +47,5 @@ This project was developed by Bhargav Patel and Akshar Parekh.
 ## Authors
 
 - [@bhargavp2004](https://github.com/bhargavp2004)
+- [@Akshar1199]
 
