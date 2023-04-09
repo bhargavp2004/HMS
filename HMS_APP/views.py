@@ -7,10 +7,13 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from django.core.mail import EmailMessage
+from django.utils.html import strip_tags
+from django.core.mail import EmailMessage, send_mail
 from django.template.loader import render_to_string
+from django.conf import settings
 import razorpay
 import datetime
+import os
 from datetime import date, datetime
 
 razorpay_client = razorpay.Client(auth=('rzp_test_nzs4ByTHntmX6Z', 'royYN10eUq420ptrsRtrqtpE'))
@@ -236,6 +239,16 @@ def book_now(request, number, check_in, check_out):
     currency=order_currency,
     user=request.user
     )
+
+    #  # Send a confirmation email to the user
+    # subject = 'Booking confirmation'
+    # html_message = render_to_string('booking_confirmation_email.html', {'room': room, 'check_in_date': check_in_date, 'check_out_date': check_out_date, 'duration': duration})
+    # plain_message = strip_tags(html_message)
+    # from_email = settings.EMAIL_HOST_USER
+    # to_email = request.user.email
+    # send_mail(subject, plain_message, from_email, [to_email], html_message=html_message)
+
+
     # Render the payment form with the order details
     return render(request, 'payment_form.html', {'order_id': razorpay_order['id'], 'amount': order_amount, 'currency': order_currency, 'number' : number, 'check_in' : check_in, 'check_out' : check_out})
 

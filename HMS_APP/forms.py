@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Room, UserProfile
+from django.core.exceptions import ValidationError
+from datetime import datetime, timedelta
 
 class AvailabilityForm(forms.Form):
     ROOM_CATEGORIES = (
@@ -48,6 +50,17 @@ class RoomSearchForm(forms.Form):
     room_category = forms.ChoiceField(choices=ROOM_CATEGORIES)
     check_in = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     check_out = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        check_in = cleaned_data.get("check_in")
+        check_out = cleaned_data.get("check_out")
+
+        if check_in and check_in < datetime.now().date():
+            raise ValidationError(("Check-in date cannot be in the past."))
+
+        if check_in and check_out and check_out < check_in:
+            raise ValidationError(("Check-out date cannot be before check-in date."))
 
 class RoomForm(forms.ModelForm):
     class Meta :
