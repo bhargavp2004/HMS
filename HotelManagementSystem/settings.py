@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -139,4 +141,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 RAZORPAY_PAYMENT_METHODS = ['card', 'netbanking', 'upi']
 RAZORPAY_API_KEY = 'rzp_test_nzs4ByTHntmX6Z'
 RAZORPAY_API_SECRET_KEY = 'royYN10eUq420ptrsRtrqtpE'
+
+#To send the email when ticket is booked  
 
