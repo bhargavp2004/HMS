@@ -13,11 +13,11 @@
     font-family: montserrat;
     background-size: cover;
     background-repeat: no-repeat;
-    ;
+    color : white;
   }
 
   .formModification {
-    background-color: rgba(175, 173, 169, 0.8);
+    background-color: rgba(0, 0, 77, 0.8);
     padding: 100px;
     font-weight: bold ;
     margin-left : 100px;
@@ -27,7 +27,7 @@
 
   .submitbutton {
     color: white;
-    background-color: rgb(42, 42, 42);
+    background-color: black;
     border-radius: 10px;
     padding: 10px;
   }
@@ -57,8 +57,9 @@
     }
 
     .navbar {
-      background-color: #333;
+      background-color: rgba(0, 0, 77, 0.8);
       position: sticky;
+      border-radius : 10px;
       top: 0;
     }
     
@@ -91,9 +92,9 @@
     <nav class="navbar">
       <ul>
         <li><a href="profile_page"> {{request.user}} </a></li>
-        <li><a href="home">Home</a></li>
-        <li><a href="about">About</a></li>
-        <li><a href="contact_us">Contact</a></li>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'contact_us' %}">Contact</a></li>
       </ul>
     </nav>
     <div class="formModification">

@@ -3,10 +3,11 @@ body{
     background-size : cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    font-family : montserrat;
 }
 a {
 padding: 15px;
-background-color: gray;
+background-color: black;
 color: white;
 border-radius: 10px;
 text-decoration: none;
@@ -22,7 +23,7 @@ background-color : black;
 .buttons{
 padding : 50px;
 border-radius : 20px;
-background-color : rgba(175, 173, 169, 0.8);     
+background-color : rgba(0, 0, 77, 0.8);     
 background-size : cover;
 background-repeat : no-repeat;
 }
