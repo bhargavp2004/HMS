@@ -20,6 +20,7 @@ razorpay_client = razorpay.Client(auth=('rzp_test_nzs4ByTHntmX6Z', 'royYN10eUq42
 RAZORPAY_PAYMENT_METHODS = ['card', 'netbanking', 'upi']
 RAZORPAY_API_KEY = "rzp_test_nzs4ByTHntmX6Z"
 
+
 def check_availability(room, check_in, check_out):
     booking_list = Booking.objects.all()
     available_list = []
@@ -174,19 +175,21 @@ def update_room(request):
 
 def update_request(request,number):
     room = Room.objects.get(number=number)
+    form = UpdateInformationForm(instance=room)
     if request.method == 'POST':
-        form = UpdateInformationForm(request.POST, request.FILES)
+        form = UpdateInformationForm(request.POST, request.FILES, instance=room)
         if form.is_valid():
             room.capacity = form.cleaned_data['capacity']
             room.category = form.cleaned_data['capacity']
             room.description = form.cleaned_data['capacity']
             room.room_price = form.cleaned_data['room_price']
             room.room_picture = form.cleaned_data['room_picture']
+            room.save()
 
             messages.success(request, "Room details were updated successfully!")
             return redirect("home")
     else:
-        form = UpdateInformationForm()
+        form = UpdateInformationForm(instance = room)
     return render(request, 'room_form.html', {'form': form})
 
 
