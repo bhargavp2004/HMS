@@ -74,13 +74,17 @@ class RoomForm(forms.ModelForm):
             'room_price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Price Per Day'}),
         }
 
-class UpdateInformationForm(forms.Form):
-    ROOM_CATEGORIES = [        ('WithAc', 'AC'),        ('WithoutAc', 'NON-AC'),        ('Deluxe', 'DELUXE'),    ]
-    category = forms.ChoiceField(choices=ROOM_CATEGORIES, required=True, widget=forms.Select(attrs={'class': 'form-control'}))
-    capacity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    room_description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
-    room_picture = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
-    room_price = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+class UpdateInformationForm(forms.ModelForm):
+    class Meta:
+        model = Room
+        fields = ['category', 'capacity', 'room_description', 'room_picture', 'room_price']
+
+        ROOM_CATEGORIES = [        ('WithAc', 'AC'),        ('WithoutAc', 'NON-AC'),        ('Deluxe', 'DELUXE'),    ]
+        category = forms.ChoiceField(choices=ROOM_CATEGORIES, required=True, widget=forms.Select(attrs={'class': 'form-control'}))
+        capacity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+        room_description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+        room_picture = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'class': 'form-control'}))
+        room_price = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 
 class UserUpdateInformationForm(forms.Form):
