@@ -9,6 +9,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/static/css/managerooms.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+
     <title>Manage rooms</title>
     <style>
 
@@ -35,6 +37,14 @@
       }
     }, 3000);
   </script>
+  <nav class="navbar">
+    <ul>
+      <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'contact_us' %}">Contact</a></li>
+    </ul>
+  </nav>
     <div class = "buttons">
     <a href="{% url 'add_image' %}"> Add Image </a>
     

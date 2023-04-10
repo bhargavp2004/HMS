@@ -3,6 +3,8 @@
   <head>
     <title>User Profile</title>
     <link rel="stylesheet" href="/static/css/profile.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+
     <style>
       body {
         background-color: #f2f2f2;
@@ -86,10 +88,18 @@
   </head>
   <body>
     <div class="container">
+      <nav class="navbar">
+        <ul>
+          <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'contact_us' %}">Contact</a></li>
+        </ul>
+      </nav>
       <h1>User Profile</h1>
       <div class="user-info">
         {% csrf_token %}
-        <img src="{{user.profile_picture.url}}" alt="{{user.username}}'s profile picture">
+        <img style = "width : 150px; height : 150px;"src="{{user.profile_picture.url}}" alt="{{user.username}}'s profile picture">
         <div>
           <h3>Name:</h3>
           <p>{{user.first_name}} {{user.last_name}}</p>

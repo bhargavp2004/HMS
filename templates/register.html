@@ -13,11 +13,21 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="/static/css/registerstyle.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+
 
 </head>
 {% block content %}
 <!--Register-->
 <div class="container py-5">
+  <nav class="navbar">
+    <ul>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'contact_us' %}">Contact</a></li>
+    </ul>
+  </nav>
   <h1>Register</h1>
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %} {{register_form.as_p}}

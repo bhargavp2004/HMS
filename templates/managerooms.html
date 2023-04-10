@@ -8,6 +8,8 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
       rel="stylesheet"
     />
+	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+
     <link rel="stylesheet" href="/static/css/managerooms.css">
     <title>Management Panel</title>
 
@@ -33,7 +35,14 @@
       }
     }, 3000);
   </script>
-
+<nav class="navbar">
+  <ul>
+    <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'about' %}">About</a></li>
+    <li><a href="{% url 'contact_us' %}">Contact</a></li>
+  </ul>
+</nav>
 <div class = "buttons">
   <h2> Management Panel </h2>
   <br>

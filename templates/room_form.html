@@ -12,10 +12,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+
 
 </head>
 <body>
     <div class="container">
+      <nav class="navbar">
+        <ul>
+          <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'contact_us' %}">Contact</a></li>
+        </ul>
+      </nav>
         <h1>Add Room</h1>
         <form method="post" enctype = "multipart/form-data">
             {% csrf_token %}

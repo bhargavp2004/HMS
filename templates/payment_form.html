@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -59,6 +61,14 @@
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <ul>
+          <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'contact_us' %}">Contact</a></li>
+        </ul>
+      </nav>
     <form action="{% url 'success_payment_page' number=number check_in=check_in check_out=check_out %}" method="POST">
         {% csrf_token %}
         <script src="https://checkout.razorpay.com/v1/checkout.js"

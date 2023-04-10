@@ -25,7 +25,7 @@ class NewUserForm(UserCreationForm):
     mobile_number = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'class': 'form-control'}))
     address = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
     username = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    profile_picture = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control'}))
+    profile_picture = forms.ImageField(required=False, widget=forms.FileInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = UserProfile
