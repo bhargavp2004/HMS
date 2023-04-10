@@ -52,5 +52,3 @@ class Payment(models.Model):
 
 class ImageGallery(models.Model):
     image = models.ImageField(upload_to='images/')
-
-    #made
