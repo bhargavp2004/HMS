@@ -8,7 +8,7 @@ app_name = "HMS_APP"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name = 'home'),
+    path('index/', views.home, name = 'home'),
     path('room_list/', RoomList.as_view(), name = "roomlist"),
     path('booking_list/', BookingList.as_view(), name = "bookinglist"),
     path('book_now/', views.showDetails, name = "showDetails"),
