@@ -46,7 +46,7 @@ class RoomList(ListView):
 class BookingList(ListView):
     model = Booking
 
-def home(request):
+def index(request):
     return render(request, 'index.html')
 
 class BookingView(FormView):
