@@ -8,45 +8,36 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
       rel="stylesheet"
     />
-	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
-
     <link rel="stylesheet" href="/static/css/managerooms.css">
     <title>Management Panel</title>
 
-  </head>
-  <body>
-    {% if messages %}
-    <div id="messages">
-      {% for msg in messages %}
-      
-        <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
-          
-          {{ msg }}
-        </div>
-      {% endfor %}
+</head>
+
+<body>
+  {% if messages %}
+  <div id="messages">
+    {% for msg in messages %}
+
+    <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
+
+      {{ msg }}
     </div>
+    {% endfor %}
+  </div>
   {% endif %}
-  
+
   <script>
-    setTimeout(function() {
+    setTimeout(function () {
       var messages = document.getElementById("messages");
       if (messages) {
         messages.style.display = 'none';
       }
     }, 3000);
   </script>
-<nav class="navbar">
-  <ul>
-    <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
-    <li><a href="{% url 'home' %}">Home</a></li>
-    <li><a href="{% url 'about' %}">About</a></li>
-    <li><a href="{% url 'contact_us' %}">Contact</a></li>
-  </ul>
-</nav>
-<div class = "buttons">
-  <h2> Management Panel </h2>
-  <br>
-  <a href="{% url 'show_all_rooms' %}"> Show All Rooms </a>
+
+  <h2 style="color : white; background-color : gray"> Management Panel </h2>
+    <div class = "buttons">
+    <a href="{% url 'show_all_rooms' %}"> Show All Rooms </a>
     <a href="{% url 'create_room' %}"> Add Room </a>
     <a href="{% url 'delete_room' %}"> Delete Room </a>
     <a href="{% url 'update_room' %}"> Update Room </a>
@@ -56,5 +47,14 @@
 
 
     </div>
-  </body>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+  integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+  integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+  crossorigin="anonymous"></script>
+</body>
+
 </html>

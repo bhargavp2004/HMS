@@ -2,8 +2,6 @@
 <html>
   <head>
     <title>Contact Us</title>
-	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
-
     <style>
       body {
         font-family: Arial, Helvetica, sans-serif;
@@ -68,14 +66,6 @@
   </head>
   <body>
     <div class="container">
-      <nav class="navbar">
-        <ul>
-          <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
-          <li><a href="{% url 'contact_us' %}">Contact</a></li>
-        </ul>
-      </nav>
       <h1>Contact Us</h1>
       <form id="contact-form" method="post" action="mailto:bhargavp2004@gmail.com" enctype="text/plain">
         <label for="name">Name</label>

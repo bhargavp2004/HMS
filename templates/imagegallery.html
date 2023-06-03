@@ -2,27 +2,7 @@
 <html>
 <head>
 	<title>Image Gallery</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
-
 	<style>
-
-    body{
-      background-image : url('/static/images/pexels-pixabay-258154.jpg');
-      font-family : montserrat;
-      background-color : rgba(0, 0, 77, 0.9);
-      color : white;
-      background-size : cover;
-      background-attachment: fixed;
-      background-repeat : no-repeat;
-    }
 		.grid-container {
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
@@ -70,14 +50,12 @@ a{
   {% if messages %}
   <div id="messages">
     {% for msg in messages %}
-    
-      <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
-        
-        {{ msg }}
-      </div>
+    <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
+      {{ msg }}
+    </div>
     {% endfor %}
   </div>
-{% endif %}
+  {% endif %}
 
 <script>
   setTimeout(function() {
@@ -87,16 +65,8 @@ a{
     }
   }, 3000);
 </script>
-<nav class="navbar">
-  <ul>
-    <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
-    <li><a href="{% url 'home' %}">Home</a></li>
-    <li><a href="{% url 'about' %}">About</a></li>
-    <li><a href="{% url 'contact_us' %}">Contact</a></li>
-  </ul>
-</nav>
 	<h1>Image Gallery</h1>
-	<div style = "background-color: rgba(0, 0, 77, 0.98);" class="grid-container">
+	<div class="grid-container">
 		<!-- loop through each image in the database -->
 		{% for image in images %}
 			<div class="grid-item">
