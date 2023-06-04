@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/managerooms.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+
+    <title>Manage rooms</title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    {% if messages %}
+    <div id="messages">
+      {% for msg in messages %}
+      
+        <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
+          
+          {{ msg }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  
+  <script>
+    setTimeout(function() {
+      var messages = document.getElementById("messages");
+      if (messages) {
+        messages.style.display = 'none';
+      }
+    }, 3000);
+  </script>
+  <nav class="navbar">
+    <ul>
+      <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'contact_us' %}">Contact</a></li>
+    </ul>
+  </nav>
+    <div class = "buttons">
+    <a href="{% url 'add_image' %}"> Add Image </a>
+    
+
+    </div>
+  </body>
+</html>

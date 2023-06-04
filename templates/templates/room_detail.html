@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/static/css/profile.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .user-info img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      h1 {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+      .edit-profile-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .edit-profile-link a {
+        color: rgba(0, 0, 77, 0.9);
+        font-weight: bold;
+        text-decoration: none;
+        margin-right: 20px;
+      }
+
+      .edit-profile-link a:hover {
+        text-decoration: underline;
+      }
+
+      .booking-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .booking-buttons a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color:rgba(0, 0, 77, 0.9);
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+
+      .booking-buttons a:hover {
+        background-color: rgba(0, 0, 77, 0.9);
+        color : white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar">
+        <ul>
+          <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'contact_us' %}">Contact</a></li>
+        </ul>
+      </nav>
+      <h1>Room Details</h1>
+      <div class="user-info">
+        {% csrf_token %}
+       
+        <div>
+           <b style = "font-size: 20px;">Number:</b>{{room.number}}
+           <br>
+           <br>
+
+           <b style = "font-size: 20px;">Category:</b>{{room.category}}
+           <br>
+           <br>
+
+           <b style = "font-size: 20px;">Capacity:</b>{{room.capacity}}
+           <br>
+           <br>
+
+           <b style = "font-size: 20px;">Price Per Day:</b>{{room.room_price}}</p>
+           <br>
+           <br>
+
+        </div>
+      </div>
+        <div class="booking-buttons">
+            <a href="bill.html"> Back</a>
+          <a href="{% url 'index' %}"> Back To Home </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

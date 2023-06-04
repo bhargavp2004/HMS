@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="/static/css/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+body {
+  background-image: url('/static/images/pexels-pixabay-258154.jpg');
+  background-size : cover;
+  background-repeat : no-repeat;
+  background-attachment : fixed;
+}
+.username {
+position: absolute;
+top: 10px;
+right: 10px;
+color: white;
+font-size: 16px;
+display : inline-block;
+}
+.msgclass{
+  color : white;
+  background-color : rgba(0, 0, 77, 0.9);
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+a{
+  text-decoration : none;
+}
+.userClass
+{
+  color : white;
+  font-family : Montserrat;
+}
+</style>
+
+<body>
+  {% if messages %}
+  <div id="messages">
+    {% for msg in messages %}
+    
+      <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
+        
+        {{ msg }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<script>
+  setTimeout(function() {
+    var messages = document.getElementById("messages");
+    if (messages) {
+      messages.style.display = 'none';
+    }
+  }, 3000);
+</script>
+  <center>
+    <div class="image">
+      {% if user.is_authenticated %}
+  <div class="username"> 
+  <a href = "{% url 'profile_page' %}">
+    <h3 class = "userClass">Welcome {{ user.username }}</h3></div>
+  </a>
+{% endif %}
+      <img src="static/images/logo2.png" alt="src">
+      {% if user.is_authenticated %}
+      <ul class="nav">
+        <li><a href="/">HOME</a></li>
+        <li><a href="{% url 'about' %}">ABOUT</a></li>
+        <li><a href="{% url 'contact_us' %}">CONTACT</a></li>
+        <li><a href="{% url 'imagegallery' %}">IMAGE GALLERY</a></li>
+        <li><a href="{% url 'logout' %}"> LOGOUT </a></li>
+        {% if user.is_superuser or user.is_staff %}
+        <li><a href="{% url 'manage_room' %}"> MANAGEMENT PANEL </a></li>
+
+        {% endif%}
+        {% else %}
+        <ul class="nav">
+          <li><a href="/">HOME</a></li>
+          <li><a href="{% url 'register' %}">REGISTER</a></li>
+          <li><a href="{% url 'login' %}">LOGIN</a></li>
+          <li><a href="{% url 'about' %}">ABOUT</a></li>
+          <li><a href="{% url 'contact_us' %}">CONTACT</a></li>
+          <li><a href="{% url 'imagegallery' %}">IMAGE GALLERY</a></li>
+        {% endif %}</li>
+      </ul>
+    </div>
+    <h1>Book Your Stay</h1>
+    <p>This holiday season, make the most of every moment with us. Take pleasure in the perfect escape</p>
+    {% if user.is_authenticated %}
+    <a href="{% url 'room_search_view' %}" class="book_now">BOOK NOW</a>
+    {% else %}
+    <a href="{% url 'login' %}" class="book_now">BOOK NOW</a>
+    {% endif %}
+    
+  </center>
+
+</body>
+
+</html>

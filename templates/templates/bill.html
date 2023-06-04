@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Management System | Login</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+  
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+
+    .alert-success {
+      color: #3c763d;
+      background-color: #dff0d8;
+      border-color: #d6e9c6;
+    }
+
+    .alert-danger {
+      color: #a94442;
+      background-color: #f2dede;
+      border-color: #ebccd1;
+    }
+
+    .btn {
+      background-color: rgba(0, 0, 77, 0.9);
+    }
+
+    .buttonClass {
+      background-color: rgb(0, 0, 77);
+      color: white;
+    }
+
+    .bg-purple {
+      background-color: rgba(0, 0, 77, 0.9);
+      color: white;
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+      color: rgba(255, 255, 255);
+    }
+
+  </style>
+
+  {% if messages %}
+  <div id="messages">
+    {% for msg in messages %}
+
+    <div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
+
+      {{ msg }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <script>
+    setTimeout(function () {
+      var messages = document.getElementById("messages");
+      if (messages) {
+        messages.style.display = 'none';
+      }
+    }, 3000);
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+
+
+
+
+  <div class="container mt-5">
+    
+  {% csrf_token %}
+    <nav class="navbar navbar-expand-lg navbar-dark my-5 bg-purple">
+      <div class="container">
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <ul class="navbar-nav ml-auto justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact_us' %}">CONTACT</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'imagegallery' %}">IMAGE GALLERY</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card shadow-lg p-4">
+          <h2 class="text-center mb-4">Booking Details</h2>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Booking ID:</strong></p>
+            </div>
+            <div class="col-6 text-right">
+              <p>{{ booking.id }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Username</strong></p>
+            </div>
+            <div class="col-6 text-right">
+              <p>{{ request.user }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Room Number:</strong></p>
+            </div>
+            <div class="col-6 text-right">
+              <p>{{ booking.room.number }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Check-In Date:</strong></p>
+            </div>
+            <div class="col-6 text-right">
+              <p>{{ booking.check_in }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Check-Out Date:</strong></p>
+            </div>
+            <div class="col-6 text-right">
+              <p>{{ booking.check_out }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Total Amount:</strong></p>
+            </div>
+            <div class="col-6 text-right">
+              <p> Rs. {{ amount }} </p>
+            </div>
+          </div>
+          <hr>
+          <p class="text-center">
+            <a href="{% url 'index' %}" class="btn btn-primary btn-lg mt-3"
+              style="background-color: rgba(0, 0, 77, 0.9); border-color :rgba(0, 0, 77, 0.9);">Back to Home</a>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
