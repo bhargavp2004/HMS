@@ -47,7 +47,7 @@ class BookingList(ListView):
     model = Booking
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'newIndex.html')
 
 class BookingView(FormView):
     form_class = AvailabilityForm
@@ -98,7 +98,7 @@ def register_request(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful." )
-            return redirect("home")
+            return redirect("index")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
     return render (request=request, template_name="register.html", context={"register_form":form})
@@ -114,7 +114,7 @@ def login_request(request) :
             if user is not None:
                 login(request, user)
                 messages.success(request, f"you are now logged in as {username}.")
-                return redirect("home")
+                return redirect("index")
             else :
                 messages.error(request, "Invalid username or password")
         else:
@@ -125,7 +125,7 @@ def login_request(request) :
 def logout_request(request):
     logout(request)
     messages.success(request, "You have successfully logged out.")
-    return redirect("home")
+    return redirect("index")
 
 def room_search_view(request):
     if request.method == 'POST':
@@ -158,7 +158,7 @@ def create_room(request):
         if form.is_valid():
             room = form.save()
             messages.success(request, "The room was added successfully!")
-            return redirect("home")
+            return redirect("index")
     else:
         form = RoomForm()
     return render(request, 'room_form.html', {'form': form})
@@ -187,7 +187,7 @@ def update_request(request,number):
             room.save()
 
             messages.success(request, "Room details were updated successfully!")
-            return redirect("home")
+            return redirect("index")
     else:
         form = UpdateInformationForm(instance = room)
     return render(request, 'room_form.html', {'form': form})
@@ -328,7 +328,7 @@ def editprofile(request):
             user.save()
 
             messages.success(request, "Information updated successfully." )
-            return redirect("home")
+            return redirect("index")
         messages.error(request, "Unsuccessful.")
     form = UserUpdateInformationForm()
     return render (request=request, template_name="UpdateInformation.html", context={"register_form":form})
