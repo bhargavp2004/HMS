@@ -1,39 +1,59 @@
-{% block content %}
-<link rel="stylesheet" href="/static/css/hotel_reports.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
-  rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="details-box">
-  <nav class="navbar">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Management System | Report</title>
+  <link rel="stylesheet" href="/static/css/hotel_reports.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+  
+  <div class="details-box">
+    <h1>Hotel Report</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark my-5 bg-purple">
+      <div class="container">
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button> -->
+        <ul class="navbar-nav ml-auto justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact_us' %}">CONTACT</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'imagegallery' %}">IMAGE GALLERY</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <p>Total number of bookings: {{ num_bookings }}</p>
+    <p>Total revenue generated: {{ total_revenue }}</p>
+    <p>Total number of rooms: {{ num_rooms }}</p>
+
+    <h2>Bookings by room category:</h2>
     <ul>
-      <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
-      <li><a href="{% url 'home' %}">Home</a></li>
-      <li><a href="{% url 'about' %}">About</a></li>
-      <li><a href="{% url 'contact_us' %}">Contact</a></li>
-    </ul>
-  </nav>
-<h1>Hotel Report</h1>
-
-  <p>Total number of bookings: {{ num_bookings }}</p>
-  <p>Total revenue generated: {{ total_revenue }}</p>
-  <p>Total number of rooms: {{ num_rooms }}</p>
-
-  <h2>Bookings by room category:</h2>
-  <ul>
-  {% for booking in bookings_by_category %}
+      {% for booking in bookings_by_category %}
       <li>{{ booking.room__category }}: {{ booking.count }}</li>
-  {% endfor %}
-  </ul>
+      {% endfor %}
+    </ul>
 
-  <p>Average occupancy rate: {{ avg_occupancy_rate }}%</p>
+    <p>Average occupancy rate: {{ avg_occupancy_rate }}%</p>
 
-  <button class = "button_class" onclick="window.print()">Print Report</button>
-</div>
-{% endblock %}
+    <button class="button_class" onclick="window.print()">Print Report</button>
+  </div>

@@ -37,17 +37,17 @@
 		tr:nth-child(even) {
 			background-color: #f2f2f2;
 		}
-		.back-to-home {
+		.back-to-index {
 			display: block;
 			text-align: center;
 			margin-top: 20px;
 		}
-		.back-to-home a {
+		.back-to-index a {
 			color: rgb(0, 0, 77);
 			font-weight: bold;
 			text-decoration: none;
 		}
-		.back-to-home a:hover {
+		.back-to-index a:hover {
 			text-decoration: underline;
 		}
 		a{
@@ -99,7 +99,7 @@
 	  <nav class="navbar">
 		<ul>
 		  <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
-		  <li><a href="{% url 'home' %}">Home</a></li>
+		  <li><a href="{% url 'index' %}">Home</a></li>
 		  <li><a href="{% url 'about' %}">About</a></li>
 		  <li><a href="{% url 'contact_us' %}">Contact</a></li>
 		</ul>
@@ -128,8 +128,8 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<div class="back-to-home">
-			<a href="{% url 'home' %}">Back to Home</a>
+		<div class="back-to-index">
+			<a href="{% url 'index' %}">Back to Home</a>
 		</div>
 	</div>
 </body>

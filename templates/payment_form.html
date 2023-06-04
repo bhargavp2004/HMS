@@ -1,15 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System | Login</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/nav.css">
 
     <style>
+        .buttonClass {
+            background-color: rgb(0, 0, 77);
+            color: white;
+        }
+
+        .bg-purple {
+            background-color: rgba(0, 0, 77, 0.9);
+            color: white;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgba(255, 255, 255);
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #f2f2f2;
@@ -40,7 +62,7 @@
 
         button[type=submit] {
             background-color: rgba(0, 0, 77, 0.9);
-            color : white;
+            color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -52,7 +74,7 @@
 
         button[type=submit]:hover {
             background-color: rgba(0, 0, 77, 0.9);
-            color : white;
+            color: white;
         }
 
         .razorpay-payment-button {
@@ -60,31 +82,42 @@
         }
     </style>
 </head>
+
 <body>
-    <nav class="navbar">
-        <ul>
-          <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
-          <li><a href="{% url 'contact_us' %}">Contact</a></li>
-        </ul>
-      </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark my-5 bg-purple">
+        <div class="container">
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> -->
+            <ul class="navbar-nav ml-auto justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_us' %}">CONTACT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'imagegallery' %}">IMAGE GALLERY</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <form action="{% url 'success_payment_page' number=number check_in=check_in check_out=check_out %}" method="POST">
         {% csrf_token %}
-        <script src="https://checkout.razorpay.com/v1/checkout.js"
-                data-key="rzp_test_nzs4ByTHntmX6Z"
-                data-amount="{{ amount }}"
-                data-currency="{{ currency }}"
-                data-order_id="{{ order_id }}"
-                data-name="Royal Hotel"
-                data-description="Room Booking Payment"
-                data-image="/static/images/pexels-pixabay-258154.jpg"
-                data-prefill.name="{{ request.user.first_name }} + " " + {{ request.user.last_name }}"
-                data-prefill.email="{{ request.user.email }}"
-                data-theme.color="#00004D"
-                date-notes="You are going to pay {{ amount }} in order to book room with room number {{ number }} from {{ check_in }} to {{ check_out }}">
-        </script>
-        <h4><i class="fa fa-info-circle"></i> You are going to pay {{ amount }} in order to book room with room number {{ number }} from {{ check_in }} to {{ check_out }}</h4>
+        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_nzs4ByTHntmX6Z"
+            data-amount="{{ amount }}" data-currency="{{ currency }}" data-order_id="{{ order_id }}"
+            data-name="Royal Hotel" data-description="Room Booking Payment"
+            data-image="/static/images/pexels-pixabay-258154.jpg"
+            data-prefill.name="{{ request.user.first_name }} + " " + {{ request.user.last_name }}"
+            data-prefill.email="{{ request.user.email }}" data-theme.color="#00004D"
+            date-notes="You are going to pay {{ amount }} in order to book room with room number {{ number }} from {{ check_in }} to {{ check_out }}">
+            </script>
+        <h4><i class="fa fa-info-circle"></i> You are going to pay {{ amount }} in order to book room with room number
+            {{ number }} from {{ check_in }} to {{ check_out }}</h4>
         <button type="submit"><i class="fa fa-credit-card"></i> Pay {{ amount }}</button>
         <input type="hidden" name="_token" value="{{ csrf_token }}">
     </form>
