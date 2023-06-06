@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Booking History</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
-
 	<style>
 		body {
 			font-family: Arial, sans-serif;
 			background-color: #f2f2f2;
 		}
+
 		.container {
 			max-width: 800px;
 			margin: 0 auto;
 			padding: 20px;
 		}
+
 		h1 {
 			font-size: 36px;
 			font-weight: bold;
 			margin-bottom: 20px;
 		}
+
 		table {
 			border-collapse: collapse;
 			width: 100%;
@@ -26,32 +31,40 @@
 			background-color: #fff;
 			box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 		}
-		th, td {
+
+		th,
+		td {
 			text-align: left;
 			padding: 8px;
 		}
+
 		th {
 			background-color: rgb(0, 0, 77);
 			color: white;
 		}
+
 		tr:nth-child(even) {
 			background-color: #f2f2f2;
 		}
+
 		.back-to-index {
 			display: block;
 			text-align: center;
 			margin-top: 20px;
 		}
+
 		.back-to-index a {
 			color: rgb(0, 0, 77);
 			font-weight: bold;
 			text-decoration: none;
 		}
+
 		.back-to-index a:hover {
 			text-decoration: underline;
 		}
-		a{
-			text-decoration : none;
+
+		a {
+			text-decoration: none;
 		}
 
 		.alert {
@@ -59,51 +72,52 @@
 			margin-bottom: 20px;
 			border: 1px solid transparent;
 			border-radius: 4px;
-		  }
-		  .alert-success {
+		}
+
+		.alert-success {
 			color: #3c763d;
 			background-color: #dff0d8;
 			border-color: #d6e9c6;
-		  }
-		  
-		  .alert-danger {
+		}
+
+		.alert-danger {
 			color: #a94442;
 			background-color: #f2dede;
 			border-color: #ebccd1;
-		  }
-		  
+		}
 	</style>
 </head>
+
 <body>
 	<div class="container">
 		{% if messages %}
 		<div id="messages">
-		  {% for msg in messages %}
-		  
+			{% for msg in messages %}
+
 			<div class="alert {% if msg.tags %}alert-{{ msg.tags }}{% endif %}">
-			  
-			  {{ msg }}
+
+				{{ msg }}
 			</div>
-		  {% endfor %}
+			{% endfor %}
 		</div>
-	  {% endif %}
-	  
-	  <script>
-		setTimeout(function() {
-		  var messages = document.getElementById("messages");
-		  if (messages) {
-			messages.style.display = 'none';
-		  }
-		}, 3000);
-	  </script>
-	  <nav class="navbar">
-		<ul>
-		  <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
-		  <li><a href="{% url 'index' %}">Home</a></li>
-		  <li><a href="{% url 'about' %}">About</a></li>
-		  <li><a href="{% url 'contact_us' %}">Contact</a></li>
-		</ul>
-	  </nav>
+		{% endif %}
+
+		<script>
+			setTimeout(function () {
+				var messages = document.getElementById("messages");
+				if (messages) {
+					messages.style.display = 'none';
+				}
+			}, 3000);
+		</script>
+		<nav class="navbar">
+			<ul>
+				<li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+				<li><a href="{% url 'index' %}">Home</a></li>
+				<li><a href="{% url 'about' %}">About</a></li>
+				<li><a href="{% url 'contact_us' %}">Contact</a></li>
+			</ul>
+		</nav>
 		<h1>Booking History</h1>
 		<table>
 			<thead>
@@ -112,7 +126,8 @@
 					<th>Room Number</th>
 					<th>Check In</th>
 					<th>Check Out</th>
-					<th>  <th>
+					<th>
+					<th>
 				</tr>
 			</thead>
 			<tbody>
@@ -133,4 +148,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hotel Management System | Management Panel </title>
   {% load static %}
+  
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
   <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -15,8 +16,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Candal&family=Montserrat:wght@400;500&display=swap"
     rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/managerooms.css">
-  <!-- <link rel="stylesheet" href="/static/css/login.css"> -->
   <style>
     .buttonClass {
       background-color: rgb(0, 0, 77);
@@ -31,8 +30,28 @@
     .navbar-dark .navbar-nav .nav-link {
       color: rgba(255, 255, 255);
     }
+
+    a{
+      text-decoration: none;
+      color : white;
+    }
+
+    .buttonClass{
+      border-radius : 5px;
+      padding : 20px;
+    }
+
+    body{
+    background-image : url('/static/images/pexels-pixabay-262048.jpg');
+    background-size : cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family : montserrat;
+}
+
   </style>
 </head>
+
 <body>
   {% if messages %}
   <div id="messages">
@@ -54,17 +73,50 @@
       }
     }, 3000);
   </script>
+  <div class="container">
+    <div class="header">
+      <h1>Management Panel </h1>
+    </div>
 
-  <div class="container-fluid">
-    <h1 style="color: white; background-color : rgba(0, 0, 77, 0.9);"> Management Panel </h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-purple">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item my-2">
+              <a href="{% url 'index' %}">HOME</a>
+            </li>
+            <li class="nav-item my-2" >
+              <a href="{% url 'contact_us' %}">CONTACT</a>
+            </li>
+            <li class="nav-item my-2">
+              <a href="{% url 'imagegallery' %}">IMAGE GALLERY</a>
+            </li>
+            <li class="nav-item my-2">
+              <a  href="{% url 'logout' %}">LOGOUT</a>
+          </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
     <div class="row">
-      <div class="col my-3"> <a class = "buttonClass" type="button" href="{% url 'show_all_rooms' %}"> Show All Rooms </a></div>
-      <div class="col my-3"> <a class = "buttonClass" type="button" href="{% url 'create_room' %}"> Add Room </a> </div>
-      <div class="col my-3"> <a class = "buttonClass" type="button" href="{% url 'delete_room' %}"> Delete Room </a> </div>
-      <div class="col my-3"> <a class = "buttonClass" type="button" href="{% url 'update_room' %}"> Update Room </a></div>
-      <div class="col my-3"> <a class = "buttonClass" type="button" href="{% url 'add_images' %}"> Add Images </a> </div>
-      <div class="col my-3"> <a class = "buttonClass" type="button" href="{% url 'delete_images' %}"> Delete Images </a> </div>
-      <div class="col my-3"> <a class = "buttonClass" type="button" href="{% url 'hotel_report' %}"> Generate Report </a> </div>
+      <div class="col my-3"> <a class="buttonClass" type="button" href="{% url 'show_all_rooms' %}"> Show All Rooms
+        </a></div>
+      <div class="col my-3"> <a class="buttonClass" type="button" href="{% url 'create_room' %}"> Add Room </a> </div>
+      <div class="col my-3"> <a class="buttonClass" type="button" href="{% url 'delete_room' %}"> Delete Room </a>
+      </div>
+      <div class="col my-3"> <a class="buttonClass" type="button" href="{% url 'update_room' %}"> Update Room </a>
+      </div>
+      <div class="col my-3"> <a class="buttonClass" type="button" href="{% url 'add_images' %}"> Add Images </a>
+      </div>
+      <div class="col my-3"> <a class="buttonClass" type="button" href="{% url 'delete_images' %}"> Delete Images </a>
+      </div>
+      <div class="col my-3"> <a class="buttonClass" type="button" href="{% url 'hotel_report' %}"> Generate Report
+        </a> </div>
     </div>
   </div>
 

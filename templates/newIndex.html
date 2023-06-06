@@ -27,6 +27,15 @@
             transition: font-size 0.4s;
             text-decoration: none;
         }
+
+        .aligner {
+            vertical-align: middle;
+        }
+
+        a{
+            text-decoration : none;
+            color : white;
+        }
     </style>
 </head>
 
@@ -34,6 +43,7 @@
     <div class="container-fluid">
 
         <div class="homeBox">
+            <center>
             {% if messages %}
             <div id="messages">
                 {% for msg in messages %}
@@ -55,69 +65,74 @@
                 }, 3000);
             </script>
             <img class="imageDiv" src="/static/images/logo2.png" alt="">
+            {% if user.is_authenticated %}
+            <a href = "{% url 'profile_page' %}">
+              <h3 class = "userClass my-3">Welcome {{ user.username }}</h3>
+            </a>
+          {% endif %}
             <nav class="navbar navbar-expand-lg navbar-dark my-5">
-                <div class="container">
-                    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button> -->
+                <div class="container justify-content-center">
+                    <center>
                     {% if user.is_authenticated %}
                     <ul class="navbar-nav ml-auto justify-content-center">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">HOME</a>
+                        <li class="nav-item my-2">
+                            <a  href="/">HOME</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                        
+                            <li class="nav-item my-2">
+                                <a  href="{% url 'about' %}">ABOUT</a>
+                            </li>
+                        <li class="nav-item my-2">
+                            <a  href="{% url 'contact_us' %}">CONTACT</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'contact_us' %}">CONTACT</a>
+                        <li class="nav-item my-2">
+                            <a  href="{% url 'imagegallery' %}">IMAGE GALLERY</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'imagegallery' %}">IMAGE GALLERY</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">LOGOUT</a>
+                        <li class="nav-item my-2">
+                            <a  href="{% url 'logout' %}">LOGOUT</a>
                         </li>
                         {% if user.is_superuser %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'manage_room' %}">MANAGEMENT PANEL</a>
+                        <li class="nav-item my-2">
+                            <a  href="{% url 'manage_room' %}">MANAGEMENT PANEL</a>
                         </li>
                         {% endif%}
                     </ul>
                     {% else %}
                     <ul class="navbar-nav ml-auto justify-content-center">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">HOME</a>
+                        <li class="nav-item my-2">
+                            <a  href="/">HOME</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">REGISTER</a>
+                        <li class="nav-item my-2">
+                            <a  href="{% url 'register' %}">REGISTER</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
+                        <li class="nav-item my-2">
+                            <a  href="{% url 'login' %}">LOGIN</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+                        <li class="nav-item my-2">
+                            <a  href="{% url 'about' %}">ABOUT</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'contact_us' %}">CONTACT</a>
+                        <li class="nav-item my-2">
+                            <a  href="{% url 'contact_us' %}">CONTACT</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'imagegallery' %}">IMAGE GALLERY</a>
+                        <li class="nav-item my-2">
+                            <a  href="{% url 'imagegallery' %}">IMAGE GALLERY</a>
                         </li>
                         {% endif %}
 
                     </ul>
+                    </center>
                 </div>
             </nav>
-                <h1>Book Your Stay</h1>
-                <h6>This holiday season, make the most of every moment with us. Take pleasure in the perfect escape</h6>
-                {% if user.is_authenticated %}
-                <a href="{% url 'room_search_view' %}" class="book_now">BOOK NOW</a>
-                {% else %}
-                <a href="{% url 'login' %}" class="book_now">BOOK NOW</a>
-                {% endif %}
+            <h1>Book Your Stay</h1>
+            <h6>This holiday season, make the most of every moment with us. Take pleasure in the perfect escape</h6>
+            {% if user.is_authenticated %}
+            <a href="{% url 'room_search_view' %}" class="book_now">BOOK NOW</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="book_now">BOOK NOW</a>
+            {% endif %}
+        </center>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

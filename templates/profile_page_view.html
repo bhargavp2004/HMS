@@ -1,121 +1,128 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>User Profile</title>
-    <link rel="stylesheet" href="/static/css/profile.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+<html lang="en">
 
-    <style>
-      body {
-        background-color: #f2f2f2;
-        font-family: Arial, sans-serif;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="/static/css/profile.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/nav.css">
 
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-      }
+  <style>
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
 
-      .user-info {
-        display: flex;
-        align-items: center;
-        margin-bottom: 30px;
-      }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-      .user-info img {
-        width: 100px;
-        height: 100px;
-        margin-right: 20px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
 
-      h1 {
-        font-size: 36px;
-        font-weight: bold;
-        margin-bottom: 20px;
-      }
+    .user-info img {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
-      h3 {
-        font-size: 18px;
-        margin-bottom: 10px;
-      }
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-      p {
-        font-size: 16px;
-        margin-bottom: 20px;
-      }
+    h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
 
-      .edit-profile-link {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 20px;
-      }
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
 
-      .edit-profile-link a {
-        color: rgba(0, 0, 77, 0.9);
-        font-weight: bold;
-        text-decoration: none;
-        margin-right: 20px;
-      }
+    .edit-profile-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
 
-      .edit-profile-link a:hover {
-        text-decoration: underline;
-      }
+    .edit-profile-link a {
+      color: rgba(0, 0, 77, 0.9);
+      font-weight: bold;
+      text-decoration: none;
+      margin-right: 20px;
+    }
 
-      .booking-buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-      }
+    .edit-profile-link a:hover {
+      text-decoration: underline;
+    }
 
-      .booking-buttons a {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color:rgba(0, 0, 77, 0.9);
-        color: white;
-        border-radius: 5px;
-        text-decoration: none;
-      }
+    .booking-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
 
-      .booking-buttons a:hover {
-        background-color: rgba(0, 0, 77, 0.9);
-        color : white;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <nav class="navbar">
-        <ul>
-          <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
-          <li><a href="{% url 'contact_us' %}">Contact</a></li>
-        </ul>
-      </nav>
-      <h1>User Profile</h1>
-      <div class="user-info">
-        {% csrf_token %}
-        <img style = "width : 150px; height : 150px;"src="{{user.profile_picture.url}}" alt="{{user.username}}'s profile picture">
-        <div>
-          <h3>Name:</h3>
-          <p>{{user.first_name}} {{user.last_name}}</p>
-          <h3>Username:</h3>
-          <p>{{user.username}}</p>
-          <h3>Address:</h3>
-          <p>{{user.address}}</p>
-          <h3>Mobile Number:</h3>
-          <p>{{user.mobile_number}}</p>
-        </div>
-      </div>
-        <div class="booking-buttons">
-          <a href="{% url 'active_bookings' %}">Active Bookings</a>
-          <a href="{% url 'booking_history' %}">Booking History</a>
-        </div>
+    .booking-buttons a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: rgba(0, 0, 77, 0.9);
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .booking-buttons a:hover {
+      background-color: rgba(0, 0, 77, 0.9);
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <ul>
+        <li><a href="{% url 'profile_page' %}"> {{request.user}} </a></li>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'contact_us' %}">Contact</a></li>
+      </ul>
+    </nav>
+    <h1>User Profile</h1>
+    <div class="user-info">
+      {% csrf_token %}
+      <img style="width : 150px; height : 150px;" src="{{user.profile_picture.url}}"
+        alt="{{user.username}}'s profile picture">
+      <div>
+        <h3>Name:</h3>
+        <p>{{user.first_name}} {{user.last_name}}</p>
+        <h3>Username:</h3>
+        <p>{{user.username}}</p>
+        <h3>Address:</h3>
+        <p>{{user.address}}</p>
+        <h3>Mobile Number:</h3>
+        <p>{{user.mobile_number}}</p>
       </div>
     </div>
-  </body>
+    <div class="booking-buttons">
+      <a href="{% url 'active_bookings' %}">Active Bookings</a>
+      <a href="{% url 'booking_history' %}">Booking History</a>
+    </div>
+  </div>
+  </div>
+</body>
+
 </html>
